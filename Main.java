@@ -10,16 +10,16 @@ public class Main {
         Jugador jugador1 = new Jugador("Alejo");
         Jugador jugador2 = new Jugador("Ojela");
 
-        Mounstruo dragon = new Mounstruo("Dragoncillo", 3000, 2500, 10);
+        Mounstruo mounstruo1 = new Mounstruo("Dragoncillo", 3000, 2500, 10, "  "  );
 
-        CartaMagica magia = new CartaMagica("mago electrico");
-
-
-         jugador2.recibirDanio(dragon.getAtk());
+        CartaMagica magia = new CartaMagica("mago electrico", "");
 
 
+         jugador2.recibirDanio(mounstruo1.getAtk());
 
-        jugador1.agregarCarta (dragon);
+
+
+        jugador1.agregarCarta (mounstruo1);
         jugador1.agregarCarta(magia);
 
         jugador1.mostrarCartas();

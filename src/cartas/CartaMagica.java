@@ -2,9 +2,9 @@ package src.cartas;
 
 public class CartaMagica extends Carta implements Efecto {
 
-    public CartaMagica (String nombre){
+    public CartaMagica (String nombre, String descripcion){
 
-        super (nombre);
+        super (nombre, descripcion);
 
     }
 
