@@ -16,6 +16,7 @@ public class Mounstruo extends Carta {
 
     }
 
+
     public int getAtk(){
 
         return atk;
@@ -34,6 +35,24 @@ public class Mounstruo extends Carta {
 
     }
 
+    public void atacar( Mountruo enemigo){
+
+        if (this.atk > getAtk(enemigo));
+
+        int diferencia = this.atk - getAtk();
+
+        System.out.println( this.grtNombre() + " Destrulle a " + enemigo.grtNombre());
+        System.out.println("Inflingiste: " + diferencia + " de daño");
+
+    } else if ( this.atk < enemigo.getAtk()) {
+
+        int diferencia = enemigo.getAtk() - this.atk;
+
+        System.out.println( this.grtNombre());
+
+        
+
+    }
 
 
 }
