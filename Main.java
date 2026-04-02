@@ -1,5 +1,6 @@
 import src.cartas.CartaMagica;
 import src.cartas.Mounstruo;
+import src.efectos.EfectoCuracion;
 import src.jugadores.Jugador;
 
 
@@ -12,9 +13,10 @@ public class Main {
 
         Mounstruo mounstruo1 = new Mounstruo("Dragoncillo", 3000, 2500, 10, "  "  );
 
-        CartaMagica magia = new CartaMagica("mago electrico", "");
+        CartaMagica magia = new CartaMagica("curandero", "Incrementa 100PH", new EfectoCuracion(100));
 
-
+         magia.activar(jugador1);
+         
          jugador2.recibirDanio(mounstruo1.getAtk());
 
 
@@ -25,5 +27,6 @@ public class Main {
         jugador1.mostrarCartas();
 
     }
+
     
 }

@@ -1,17 +1,36 @@
 package src.cartas;
 
-public class CartaMagica extends Carta implements Efecto {
+import src.efectos.Efecto;
+import src.jugadores.Jugador;
 
-    public CartaMagica (String nombre, String descripcion){
+
+public class CartaMagica extends Carta {
+
+    private Efecto efecto;
+
+
+    public CartaMagica (String nombre, String descripcion, Efecto efecto){
 
         super (nombre, descripcion);
+        this.efecto = efecto;
 
     }
 
-    @Override //para implemetar metodo del inteface
-    public void activar(){
+   
+    public void activar(Jugador jugador){
 
-        System.out.println("Se activa carta magica: "+ grtNombre());
+        System.out.println("Se activa carta magica: "+ getNombre());
+        efecto.activar(jugador);
+
+
+    }
+
+
+     public void activar(Mounstruo mounstruo){
+
+        System.out.println("Se activa carta magica: "+ getNombre());
+        efecto.activar(mounstruo);
+
 
     }
 

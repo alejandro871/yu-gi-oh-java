@@ -27,7 +27,7 @@ public class Jugador {
 
         for (Carta c: cartas) {
 
-            System.out.println(c.grtNombre());
+            System.out.println(c.getNombre());
 
         }
 
@@ -37,6 +37,11 @@ public class Jugador {
 
         return vida;
 
+    }
+
+    public void setVida(int vida){
+
+        this.vida = vida;
     }
 
 public String getNombre(){
@@ -57,6 +62,23 @@ public void recibirDanio(int danio){
 
     System.out.println(nombre + " recibe "+ danio + " de daño. Vida restante: " + vida);
 
+
+}
+
+public void eliminarCarta(Carta carta){
+
+    boolean eliminada = false;
+
+    for (int i=0; i<cartas.size() && !eliminada; i++){
+
+        if(carta.getNombre().equals(cartas.get(i).getNombre())){
+
+            cartas.remove(i);
+            eliminada = true;
+        }
+
+
+    }
 
 }
 

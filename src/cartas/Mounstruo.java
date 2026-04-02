@@ -42,6 +42,11 @@ public class Mounstruo extends Carta {
 
     }
 
+    
+
+
+
+
     public int atacar( Mounstruo enemigo){
 
 

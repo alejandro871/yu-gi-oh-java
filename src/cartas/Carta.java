@@ -16,7 +16,7 @@ public abstract class Carta {
         return descripcion;
     }
 
-    public String grtNombre() {
+    public String getNombre() {
         return nombre;
     }
 
