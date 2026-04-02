@@ -7,17 +7,22 @@ public class Main {
 
     public static void main(String[] arg) {
 
-        Jugador jugador = new Jugador("Alejo");
+        Jugador jugador1 = new Jugador("Alejo");
+        Jugador jugador2 = new Jugador("Ojela");
 
         Mounstruo dragon = new Mounstruo("Dragoncillo", 3000, 2500, 10);
 
         CartaMagica magia = new CartaMagica("mago electrico");
 
 
-        jugador.agregarCarta (dragon);
-        jugador.agregarCarta(magia);
+         jugador2.recibirDanio(dragon.getAtk());
 
-        jugador.mostrarCartas();
+
+
+        jugador1.agregarCarta (dragon);
+        jugador1.agregarCarta(magia);
+
+        jugador1.mostrarCartas();
 
     }
     

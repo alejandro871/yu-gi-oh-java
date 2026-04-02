@@ -45,7 +45,20 @@ public String getNombre(){
 
 }
 
+public void recibirDanio(int danio){
 
+    this.vida -= danio; // Aqui es donde se le resta la vida
+
+    if (this.vida < 0 ) {
+        
+        this.vida = 0;
+
+    }// Para evitar os negativos
+
+    System.out.println(nombre + " recibe "+ danio + " de daño. Vida restante: " + vida);
+
+
+}
 
 
 }
