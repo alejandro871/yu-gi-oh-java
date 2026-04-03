@@ -28,7 +28,12 @@ public class Mounstruo extends Carta {
 
         return atk;
 
-    } //para poder saber sus valores que vienen de la clase pruvada
+    }
+
+    public void setAtk (int atk){
+
+        this.atk = atk;
+    }
     
     public int getDef(){
 
@@ -40,7 +45,7 @@ public class Mounstruo extends Carta {
 
         return nivel;
 
-    }
+    }//para poder saber sus valores que vienen de la clase pruvada
 
 
 

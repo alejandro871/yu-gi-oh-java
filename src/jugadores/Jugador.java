@@ -83,4 +83,18 @@ public void eliminarCarta(Carta carta){
 }
 
 
+public Carta robarCarta(){
+
+    if(!cartas.isEmpty()){
+        Carta carta = cartas.remove(0);//se roba la primera carta
+        System.out.println( nombre + " roba " +carta.getNombre());
+        return carta;
+
+    }else{
+
+        System.out.println(" No hay cartas para robar ");
+        return null;
+    }
+}
+
 }

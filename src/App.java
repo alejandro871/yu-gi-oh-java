@@ -2,6 +2,7 @@ import cartas.CartaMagica;
 import cartas.Mounstruo;
 import efectos.EfectoCuracion;
 import jugadores.Jugador;
+import efectos.AumentoAtaque;
 
 
 public class App {
@@ -13,20 +14,29 @@ public class App {
 
         Mounstruo mounstruo1 = new Mounstruo("Dragoncillo", 3000, 2500, 10, "  "  );
 
-        CartaMagica magia = new CartaMagica("curandero", "Incrementa 100PH", new EfectoCuracion(100));
+        CartaMagica magia1 = new CartaMagica("curandero", "Incrementa 100PH", new EfectoCuracion(100));
+        CartaMagica magia2 = new CartaMagica("venenista", " posiones de veneno ", new AumentoAtaque(500));
 
-         magia.activar(jugador1);
+
+         magia2.activar(jugador1);
          
          jugador2.recibirDanio(mounstruo1.getAtk());
 
 
 
         jugador1.agregarCarta (mounstruo1);
-        jugador1.agregarCarta(magia);
+        jugador1.agregarCarta(magia2);
 
         jugador1.mostrarCartas();
 
+        System.out.println("ATK antes: " + mounstruo1.getAtk());
+
+        magia2.activar(mounstruo1);
+
+        System.out.println("ATK despues: " + mounstruo1.getAtk());
+
     }
+    
 
     
 }
