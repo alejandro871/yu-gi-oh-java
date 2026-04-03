@@ -1,7 +1,7 @@
-package src.efectos;
+package efectos;
 
-import src.cartas.Mounstruo;
-import src.jugadores.Jugador;
+import cartas.Mounstruo;
+import jugadores.Jugador;
 
 public interface Efecto {
 

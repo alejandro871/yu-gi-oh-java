@@ -1,6 +1,6 @@
-package src.jugadores;
+package jugadores;
 import java.util.ArrayList;
-import src.cartas.Carta;
+import cartas.Carta;
 
 
 public class Jugador {

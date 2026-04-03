@@ -1,6 +1,6 @@
-package src.efectos;
-import src.cartas.Mounstruo;
-import src.jugadores.Jugador;
+package efectos;
+import cartas.Mounstruo;
+import jugadores.Jugador;
 
 
 public class EfectoCuracion implements Efecto{

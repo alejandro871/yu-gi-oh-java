@@ -1,4 +1,4 @@
-package src.cartas;
+package cartas;
 
 public abstract class Carta {
 

@@ -1,7 +1,6 @@
-package src.cartas;
-
-import src.efectos.Efecto;
-import src.jugadores.Jugador;
+package cartas;
+import efectos.Efecto;
+import jugadores.Jugador;
 
 
 public class CartaMagica extends Carta {

@@ -1,4 +1,4 @@
-package src.cartas;
+package cartas;
 
 public class Mounstruo extends Carta {
 
@@ -42,7 +42,7 @@ public class Mounstruo extends Carta {
 
     }
 
-    
+
 
 
 

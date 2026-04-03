@@ -1,10 +1,10 @@
-import src.cartas.CartaMagica;
-import src.cartas.Mounstruo;
-import src.efectos.EfectoCuracion;
-import src.jugadores.Jugador;
+import cartas.CartaMagica;
+import cartas.Mounstruo;
+import efectos.EfectoCuracion;
+import jugadores.Jugador;
 
 
-public class Main {
+public class App {
 
     public static void main(String[] arg) {
 
