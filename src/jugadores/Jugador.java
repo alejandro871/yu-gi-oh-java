@@ -64,6 +64,77 @@ public void mostrarCampo(){
     }
 }
 
+public void eliminarMonstruo(Mounstruo m){
+
+    campo.remove(m);
+}
+
+public void atacarJugador( Jugador enemigo ){
+
+if (this.campo.isEmpty()){ //el isEmpty es para mirar lo que hay dentro de la lista y sebaer si esta vacia (sin mounstruos)
+
+    System.out.println(" No tienes Mounstruos para atacar ");
+    return;
+
+    }
+
+    Mounstruo atacante = this.campo.get(0);
+
+
+
+if(enemigo.campo.isEmpty()){
+
+        System.out.println("¡" + atacante.getNombre() + " ataca directamente! ");
+        enemigo.recibirDanio(atacante.getAtk());//ataque directo
+
+    }else{
+
+        Mounstruo defensor = enemigo.campo.get(0);
+        int resultado = atacante.atacar(defensor);
+
+        if  (resultado > 0){
+
+            System.out.println(atacante.getNombre() + " destruye a " + defensor.getNombre());
+
+            enemigo.eliminarMonstruo(defensor);
+
+            enemigo.recibirDanio(resultado);
+        }
+
+        else if(resultado < 0){
+
+            System.out.println(defensor.getNombre() + " destruye a " + atacante.getNombre());
+
+            this.eliminarMonstruo(atacante);
+
+            this.recibirDanio(-resultado);
+
+        }else{
+            
+            System.out.println("Ambos monstruos se destruyen");
+
+            this.eliminarMonstruo(atacante);
+
+            enemigo.eliminarMonstruo(defensor);
+        }
+
+        
+
+
+    }
+
+
+
+{
+
+
+}
+
+}
+
+
+
+
 
 
 public void jugarMonstruo(Mounstruo m){

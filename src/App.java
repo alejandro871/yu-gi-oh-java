@@ -32,29 +32,49 @@ public class App {
 
         //jugador1.mostrarCartas();
 
-        System.out.println("ATK antes: " + mounstruo1.getAtk());
+        //System.out.println("ATK antes: " + mounstruo1.getAtk());
 
-        magia2.activar(mounstruo1);
+        //magia2.activar(mounstruo1);
 
-        System.out.println("ATK despues: " + mounstruo1.getAtk());
+       // System.out.println("ATK despues: " + mounstruo1.getAtk());
 
 
         Juego juego = new Juego(jugador1, jugador2);
 
         // turno 1
-        juego.iniciarTurno();
+        //juego.iniciarTurno();
 
         // turno 2
-        juego.cambiarTurno();
-        juego.iniciarTurno();
+        //juego.cambiarTurno();
+        //juego.iniciarTurno();
 
+
+        //jugador1.agregarCarta(mounstruo1);
+
+        //jugador1.mostrarCampo();
+
+        //jugador1.jugarMonstruo(mounstruo1);
+
+       
+
+        //jugador1.agregarCarta(mounstruo1);
+        //jugador1.jugarMonstruo(mounstruo1);
+
+        // jugador2 NO tiene monstruos
+
+        //jugador1.atacarJugador(jugador2);
 
         jugador1.agregarCarta(mounstruo1);
-
         jugador1.jugarMonstruo(mounstruo1);
 
-        jugador1.mostrarCampo();
+        jugador1.atacarJugador(jugador2);
+        jugador1.atacarJugador(jugador2);
+        jugador1.atacarJugador(jugador2);
+    
 
+
+        juego.ganador();
     }
+  
     
 }

@@ -15,6 +15,24 @@ public class Juego {
 
     }
 
+    public boolean ganador(){
+
+        if (jugador1.getVida() <= 0){
+
+            System.out.println(jugador2.getNombre()+ " gana el duelo");
+            return true;
+        }
+
+        if (jugador2.getVida() <= 0){
+
+            System.out.println(jugador1.getNombre() + " gana el duelo");
+        return true;}
+
+        return false;
+
+
+    }
+
     public void iniciarTurno(){
 
         System.out.println(" Turno de: " + jugadorActual.getNombre());
