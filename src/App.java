@@ -3,6 +3,8 @@ import cartas.Mounstruo;
 import efectos.EfectoCuracion;
 import jugadores.Jugador;
 import efectos.AumentoAtaque;
+import efectos.PotOfGreed;
+import juego.Juego;
 
 
 public class App {
@@ -11,6 +13,7 @@ public class App {
 
         Jugador jugador1 = new Jugador("Alejo");
         Jugador jugador2 = new Jugador("Ojela");
+    
 
         Mounstruo mounstruo1 = new Mounstruo("Dragoncillo", 3000, 2500, 10, "  "  );
 
@@ -18,16 +21,16 @@ public class App {
         CartaMagica magia2 = new CartaMagica("venenista", " posiones de veneno ", new AumentoAtaque(500));
 
 
-         magia2.activar(jugador1);
+         //magia2.activar(jugador1);
          
-         jugador2.recibirDanio(mounstruo1.getAtk());
+         //jugador2.recibirDanio(mounstruo1.getAtk());
 
 
 
-        jugador1.agregarCarta (mounstruo1);
-        jugador1.agregarCarta(magia2);
+        //jugador1.agregarCarta (mounstruo1);
+        //jugador1.agregarCarta(magia2);
 
-        jugador1.mostrarCartas();
+        //jugador1.mostrarCartas();
 
         System.out.println("ATK antes: " + mounstruo1.getAtk());
 
@@ -35,8 +38,23 @@ public class App {
 
         System.out.println("ATK despues: " + mounstruo1.getAtk());
 
-    }
-    
 
+        Juego juego = new Juego(jugador1, jugador2);
+
+        // turno 1
+        juego.iniciarTurno();
+
+        // turno 2
+        juego.cambiarTurno();
+        juego.iniciarTurno();
+
+
+        jugador1.agregarCarta(mounstruo1);
+
+        jugador1.jugarMonstruo(mounstruo1);
+
+        jugador1.mostrarCampo();
+
+    }
     
 }

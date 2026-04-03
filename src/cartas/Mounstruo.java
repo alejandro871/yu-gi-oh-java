@@ -2,6 +2,7 @@ package cartas;
 
 public class Mounstruo extends Carta {
 
+    private int atkBase;
     private int atk;
     private int def;
     private int nivel;
@@ -11,7 +12,8 @@ public class Mounstruo extends Carta {
 
         super(nombre, descripcion); //es para decirle a la clase padre que le guarde algo
 
-        this.atk = atk;
+        this.atkBase = atk; //ELvalor original que no cambia
+        this.atk = atk; //valor actual que cambia con los efectos
         this.def = def;
         this.nivel = nivel; //se guardan los valores recibidos dentro del obj
         this.posicion = true;
@@ -49,7 +51,10 @@ public class Mounstruo extends Carta {
 
 
 
+    public void resetAtk(){
 
+        this.atk = atkBase;
+    }
 
 
     public int atacar( Mounstruo enemigo){

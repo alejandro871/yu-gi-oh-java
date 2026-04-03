@@ -1,6 +1,7 @@
 package jugadores;
 import java.util.ArrayList;
 import cartas.Carta;
+import cartas.Mounstruo;
 
 
 public class Jugador {
@@ -9,11 +10,15 @@ public class Jugador {
     private int vida;
     private ArrayList<Carta> cartas; //es una lista de cartas que tiene el jugaodr
     //el <carta> es porq solo se pueden en esa lista los objetos cartas
+    private ArrayList<Mounstruo> campo;
+
+
     public Jugador (String nombre){
 
         this.nombre = nombre;
         this.vida = 8000; //inica directamente con la vida estipulada ya que no varia
         this.cartas = new ArrayList<>(); //nuevo bolsillo pa las cartas
+        this.campo = new ArrayList<>();
 
     }
 
@@ -48,6 +53,25 @@ public String getNombre(){
 
     return nombre;
 
+}
+
+public void mostrarCampo(){
+
+    System.out.println("Monstruos en campo de " + nombre + ":");
+
+    for (Mounstruo m : campo){
+        System.out.println("- " + m.getNombre() + " ATK: " + m.getAtk());
+    }
+}
+
+
+
+public void jugarMonstruo(Mounstruo m){
+
+    campo.add(m);
+    eliminarCarta(m);
+
+    System.out.println(nombre + " invoca a " + m.getNombre());
 }
 
 public void recibirDanio(int danio){
