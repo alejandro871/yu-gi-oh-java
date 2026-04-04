@@ -43,6 +43,13 @@ public class Mounstruo extends Carta {
 
     }
 
+    public void setDef(int def){
+
+        this.def = def;
+    }
+
+    
+
     public int getNivel(){
 
         return nivel;

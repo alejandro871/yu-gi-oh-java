@@ -12,24 +12,26 @@ public class Jugador {
     private ArrayList<Carta> cartas; //es una lista de cartas que tiene el jugaodr
     //el <carta> es porq solo se pueden en esa lista los objetos cartas
     private ArrayList<Mounstruo> campo;
+    private ArrayList<Carta> cementerio;
 
 
-    public Jugador (String nombre){
+public Jugador (String nombre){
 
         this.nombre = nombre;
         this.vida = 8000; //inica directamente con la vida estipulada ya que no varia
         this.cartas = new ArrayList<>(); //nuevo bolsillo pa las cartas
         this.campo = new ArrayList<>();
+        this.cementerio = new ArrayList<>();
 
     }
 
-    public void agregarCarta(Carta carta){
+public void agregarCarta(Carta carta){
 
         cartas.add(carta);
 
     }
 
-    public void mostrarCartas(){
+public void mostrarCartas(){
 
         for (Carta c: cartas) {
 
@@ -39,13 +41,13 @@ public class Jugador {
 
     }
 
-    public int getVida(){
+public int getVida(){
 
         return vida;
 
     }
 
-    public void setVida(int vida){
+public void setVida(int vida){
 
         this.vida = vida;
     }
@@ -68,6 +70,8 @@ public void mostrarCampo(){
 public void eliminarMonstruo(Mounstruo m){
 
     campo.remove(m);
+    cementerio.add(m);
+    System.out.println( m.getNombre() + " fue enviado al cementerio ");
 }
 
 public void atacarJugador( Jugador enemigo ){
@@ -182,21 +186,35 @@ public Carta robarCarta(){
 
 public void jugarMagia(CartaMagica carta){
 
+    if (!cartas.contains(carta)) {
+
+        System.out.println(" No tienes esa carta en la mano ");
+
+        return;
+    }
+
     eliminarCarta(carta);
 
     System.out.println(nombre + " activa la carta magica: " + carta.getNombre());
 
     carta.activar(this);
 
-    if (!cartas.contains(carta)) {
+    cementerio.add(carta);
+    
+}
 
-    System.out.println(" No tienes esa carta en la mano ");
+public void mostrarCementerio(){
 
-    return;
+    System.out.println(" Cementerio de " + nombre + ": ");
+
+    for (Carta c : cementerio){
+        System.out.println("- " + c.getNombre());
     }
 }
 
 }
+
+
 
 
 
