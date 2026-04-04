@@ -2,6 +2,7 @@ package jugadores;
 import java.util.ArrayList;
 import cartas.Carta;
 import cartas.Mounstruo;
+import cartas.CartaMagica;
 
 
 public class Jugador {
@@ -118,25 +119,12 @@ if(enemigo.campo.isEmpty()){
             enemigo.eliminarMonstruo(defensor);
         }
 
-        
-
-
     }
 
 
 
-{
-
-
 }
-
-}
-
-
-
-
-
-
+ 
 public void jugarMonstruo(Mounstruo m){
 
     campo.add(m);
@@ -177,7 +165,6 @@ public void eliminarCarta(Carta carta){
 
 }
 
-
 public Carta robarCarta(){
 
     if(!cartas.isEmpty()){
@@ -190,6 +177,26 @@ public Carta robarCarta(){
         System.out.println(" No hay cartas para robar ");
         return null;
     }
+
+}
+
+public void jugarMagia(CartaMagica carta){
+
+    eliminarCarta(carta);
+
+    System.out.println(nombre + " activa la carta magica: " + carta.getNombre());
+
+    carta.activar(this);
+
+    if (!cartas.contains(carta)) {
+
+    System.out.println(" No tienes esa carta en la mano ");
+
+    return;
+    }
 }
 
 }
+
+
+

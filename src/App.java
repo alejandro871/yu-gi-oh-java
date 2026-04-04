@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+
+import cartas.Carta;
 import cartas.CartaMagica;
 import cartas.Mounstruo;
 import efectos.EfectoCuracion;
@@ -13,6 +16,8 @@ public class App {
 
         Jugador jugador1 = new Jugador("Alejo");
         Jugador jugador2 = new Jugador("Ojela");
+
+       
     
 
         Mounstruo mounstruo1 = new Mounstruo("Dragoncillo", 1700, 2500, 10, "  "  );
@@ -68,7 +73,9 @@ public class App {
 
         jugador1.agregarCarta(mounstruo1);
         jugador2.agregarCarta(mounstruo2);
+        jugador1.agregarCarta(magia2);
         jugador2.agregarCarta(mounstruo3);
+        jugador1.jugarMagia(magia2);
         jugador1.jugarMonstruo(mounstruo1);
         jugador2.jugarMonstruo(mounstruo2);
         jugador2.jugarMonstruo(mounstruo3);

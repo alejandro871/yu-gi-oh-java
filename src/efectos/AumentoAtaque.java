@@ -23,6 +23,6 @@ public class AumentoAtaque implements Efecto {
 
         mounstruo.setAtk(nuevoAtk);
 
-        System.out.println("El ataque del monstruo aumenta de " + atkActual + " a " + nuevoAtk);
+        System.out.println(" El ataque del monstruo aumenta de " + atkActual + " a " + nuevoAtk);
     }
 }
