@@ -15,6 +15,21 @@ public class Juego {
 
     }
 
+    public void estadoJuego(){
+
+        System.out.println("------ESTADO DEL PARTIDA-----");
+
+        System.out.println(jugador1.getNombre() + " - LP: " + jugador1.getVida() );
+        jugador1.mostrarCampo();
+
+        System.out.println("");
+
+        System.out.println(jugador2.getNombre() + " - LP: " + jugador2.getVida());
+        jugador2.mostrarCampo();
+
+        System.out.println("-------------");
+    }
+
     public boolean ganador(){
 
         if (jugador1.getVida() <= 0){

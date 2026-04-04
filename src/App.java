@@ -15,7 +15,9 @@ public class App {
         Jugador jugador2 = new Jugador("Ojela");
     
 
-        Mounstruo mounstruo1 = new Mounstruo("Dragoncillo", 3000, 2500, 10, "  "  );
+        Mounstruo mounstruo1 = new Mounstruo("Dragoncillo", 1700, 2500, 10, "  "  );
+        Mounstruo mounstruo2 = new Mounstruo("Vampiro", 1000, 2500, 5, "  "  );
+        Mounstruo mounstruo3 = new Mounstruo("Pitbull", 1200, 500, 1, "  "  );
 
         CartaMagica magia1 = new CartaMagica("curandero", "Incrementa 100PH", new EfectoCuracion(100));
         CartaMagica magia2 = new CartaMagica("venenista", " posiones de veneno ", new AumentoAtaque(500));
@@ -65,15 +67,22 @@ public class App {
         //jugador1.atacarJugador(jugador2);
 
         jugador1.agregarCarta(mounstruo1);
+        jugador2.agregarCarta(mounstruo2);
+        jugador2.agregarCarta(mounstruo3);
         jugador1.jugarMonstruo(mounstruo1);
+        jugador2.jugarMonstruo(mounstruo2);
+        jugador2.jugarMonstruo(mounstruo3);
 
+        jugador2.atacarJugador(jugador1);
         jugador1.atacarJugador(jugador2);
-        jugador1.atacarJugador(jugador2);
-        jugador1.atacarJugador(jugador2);
+        //jugador1.atacarJugador(jugador2);
     
 
 
         juego.ganador();
+        juego.estadoJuego();
+
+        
     }
   
     
