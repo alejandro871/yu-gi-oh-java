@@ -17,6 +17,7 @@ public class EfectoCuracion implements Efecto{
     public void activar(Jugador jugador) {
     
         jugador.setVida(jugador.getVida()+ cantidadCuracion);
+        System.out.println(" El jugador recupera " + cantidadCuracion + " LP. Vida actual: " + jugador.getVida());
     }
 
     @Override
