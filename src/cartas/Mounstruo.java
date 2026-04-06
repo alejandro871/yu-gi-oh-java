@@ -7,6 +7,7 @@ public class Mounstruo extends Carta {
     private int def;
     private int nivel;
     private boolean posicion;// True es ataque y Falso es defensa
+    private boolean yaAtaco;
 
     public Mounstruo (String nombre, int atk, int def, int nivel, String descripcion ){
 
@@ -17,6 +18,8 @@ public class Mounstruo extends Carta {
         this.def = def;
         this.nivel = nivel; //se guardan los valores recibidos dentro del obj
         this.posicion = true;
+        this.yaAtaco = false;
+
     }
 
 
@@ -48,7 +51,7 @@ public class Mounstruo extends Carta {
         this.def = def;
     }
 
-    
+
 
     public int getNivel(){
 
@@ -91,6 +94,24 @@ public class Mounstruo extends Carta {
         posicion = !posicion;
 
     }
+
+    public boolean yaAtaco(){
+
+    return yaAtaco;
+
+    }
+
+    public void marcarAtaque(){
+
+    this.yaAtaco = true; 
+
+    }
+
+    public void reiniciarAtaque(){
+
+    this.yaAtaco = false;
+    }
+
 
 
 }

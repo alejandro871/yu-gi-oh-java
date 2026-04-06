@@ -83,13 +83,22 @@ if (this.campo.isEmpty()){ //el isEmpty es para mirar lo que hay dentro de la li
 
     }
 
-    Mounstruo atacante = this.campo.get(0);
+    Mounstruo atacante = this.campo.get(0); 
+
+    if (atacante.yaAtaco()){
+
+    System.out.println("Este monstruo ya atacó en este turno");
+
+    return;
+    
+    }
 
 
 
 if(enemigo.campo.isEmpty()){
 
         System.out.println("¡" + atacante.getNombre() + " ataca directamente! ");
+
         enemigo.recibirDanio(atacante.getAtk());//ataque directo
 
     }else{
@@ -121,12 +130,23 @@ if(enemigo.campo.isEmpty()){
             this.eliminarMonstruo(atacante);
 
             enemigo.eliminarMonstruo(defensor);
+
         }
 
+
     }
+    
+    atacante.marcarAtaque();
 
+}
 
+public void reiniciarAtaques(){
 
+    for (Mounstruo m : campo){
+
+        m.reiniciarAtaque();
+
+    }
 }
  
 public void jugarMonstruo(Mounstruo m){
@@ -179,6 +199,7 @@ public Carta robarCarta(){
     }else{
 
         System.out.println(" No hay cartas para robar ");
+        this.vida = 0;
         return null;
     }
 

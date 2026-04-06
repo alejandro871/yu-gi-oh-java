@@ -70,6 +70,20 @@ public class App {
         CartaMagica c8 = new CartaMagica("RoboCuracion", "", new RoboDefinitivo());
         CartaMagica c9 = new CartaMagica("Reset", "", new ResetAtk());
         CartaMagica c10 = new CartaMagica("Escudo", "", new Escudo(200));
+
+
+        
+        Juego juego = new Juego(jugador1, jugador2);
+
+        if (!juego.esPrimerTurno()){
+
+            jugador1.atacarJugador(jugador2);
+
+            } else {
+
+            System.out.println("No se puede atacar en el primer turno");
+
+            }
     
 
         Mounstruo mounstruo1 = new Mounstruo("Dragoncillo", 1700, 2500, 10, "  "  );
@@ -98,7 +112,6 @@ public class App {
        // System.out.println("ATK despues: " + mounstruo1.getAtk());
 
 
-        Juego juego = new Juego(jugador1, jugador2);
 
         // turno 1
         //juego.iniciarTurno();
@@ -138,7 +151,7 @@ public class App {
     
 
 
-        juego.ganador();
+        juego.hayGanador();
         juego.estadoJuego();
 
         
