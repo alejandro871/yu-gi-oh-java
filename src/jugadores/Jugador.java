@@ -101,45 +101,58 @@ if (this.campo.isEmpty()){ //el isEmpty es para mirar lo que hay dentro de la li
 
     }
 
-    Mounstruo atacante = this.campo.get(0); 
+    Mounstruo atacante = null;
 
-    if (atacante.yaAtaco()){
+        for (Mounstruo m : campo) {
 
-    System.out.println("Este monstruo ya atacó en este turno");
+            if (!m.yaAtaco()) {
+
+                atacante = m;
+
+                break;
+
+            }
+
+        }
+
+if (atacante == null) {
+
+    System.out.println(" Todos tus monstruos ya atacaron este turno ");
 
     return;
-    
     }
-
 
 
 if(enemigo.campo.isEmpty()){
 
-        System.out.println("¡" + atacante.getNombre() + " ataca directamente! ");
+     System.out.println("¡" + atacante.getNombre() + " ataca directamente! ");
 
-        enemigo.recibirDanio(atacante.getAtk());//ataque directo
+     enemigo.recibirDanio(atacante.getAtk());//ataque directo
 
     }else{
+    
+    Mounstruo defensor = enemigo.campo.get(0);
+        
+     int resultado = atacante.atacar(defensor);
+    
 
-        Mounstruo defensor = enemigo.campo.get(0);
-        int resultado = atacante.atacar(defensor);
+if  (resultado > 0){
 
-        if  (resultado > 0){
+        System.out.println(atacante.getNombre() + " destruye a " + defensor.getNombre());
 
-            System.out.println(atacante.getNombre() + " destruye a " + defensor.getNombre());
+        enemigo.eliminarMonstruo(defensor);
 
-            enemigo.eliminarMonstruo(defensor);
+        enemigo.recibirDanio(resultado);
 
-            enemigo.recibirDanio(resultado);
         }
 
-        else if(resultado < 0){
+     else if(resultado < 0){
 
-            System.out.println(defensor.getNombre() + " destruye a " + atacante.getNombre());
+        System.out.println(defensor.getNombre() + " destruye a " + atacante.getNombre());
 
-            this.eliminarMonstruo(atacante);
+        this.eliminarMonstruo(atacante);
 
-            this.recibirDanio(-resultado);
+        this.recibirDanio(-resultado);
 
         }else{
             
@@ -159,6 +172,8 @@ if(enemigo.campo.isEmpty()){
 }
 
 public void reiniciarAtaques(){
+
+    cartaJugadaEsteTurno = false;
 
     for (Mounstruo m : campo){
 
@@ -191,11 +206,7 @@ public void recibirDanio(int danio){
 
     this.vida -= danio; // Aqui es donde se le resta la vida
 
-    if (this.vida < 0 ) {
-        
-        this.vida = 0;
-
-    }// Para evitar os negativos
+    if (this.vida < 0 ) this.vida = 0; // Para evitar os negativos
 
     System.out.println(nombre + " recibe "+ danio + " de daño. Vida restante: " + vida);
 
@@ -269,7 +280,19 @@ public void mostrarCementerio(){
     }
 }
 
+public void mostrarMano(){
+
+     System.out.println("Mano de " + nombre + " (" + mano.size() + " cartas):");
+
+     for (int i = 0; i < mano.size(); i++) {
+
+        System.out.println("  [" + i + "] " + mano.get(i).getNombre());
+
+        }
+    }
+
 }
+
 
 
 
