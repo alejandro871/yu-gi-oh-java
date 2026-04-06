@@ -9,31 +9,49 @@ public class Jugador {
     
     private String nombre;
     private int vida;
-    private ArrayList<Carta> cartas; //es una lista de cartas que tiene el jugaodr
-    //el <carta> es porq solo se pueden en esa lista los objetos cartas
+    private ArrayList<Carta> mano; //es una lista de cartas que tiene el jugaodor
+    private ArrayList<Carta> mazo;
     private ArrayList<Mounstruo> campo;
     private ArrayList<Carta> cementerio;
+    private boolean cartaJugadaEsteTurno;
 
 
 public Jugador (String nombre){
 
         this.nombre = nombre;
-        this.vida = 8000; //inica directamente con la vida estipulada ya que no varia
-        this.cartas = new ArrayList<>(); //nuevo bolsillo pa las cartas
+        this.vida = 8000; 
+        this.mano = new ArrayList<>(); 
+        this.mazo = new ArrayList<>();
         this.campo = new ArrayList<>();
         this.cementerio = new ArrayList<>();
+        this.cartaJugadaEsteTurno = false;
 
     }
 
 public void agregarCarta(Carta carta){
 
-        cartas.add(carta);
+        mazo.add(carta);
 
     }
 
+public void tomarManoInicial(){
+
+    for (int i = 0; i < 5; i++) { //
+
+            if (!mazo.isEmpty()) {
+
+                mano.add(mazo.remove(0));
+
+            }
+
+        }
+
+        System.out.println(nombre + " toma su mano inicial de 5 cartas.");
+}
+
 public void mostrarCartas(){
 
-        for (Carta c: cartas) {
+        for (Carta c: mazo) {
 
             System.out.println(c.getNombre());
 
@@ -151,10 +169,22 @@ public void reiniciarAtaques(){
  
 public void jugarMonstruo(Mounstruo m){
 
-    campo.add(m);
-    eliminarCarta(m);
+    if(cartaJugadaEsteTurno){
 
-    System.out.println(nombre + " invoca a " + m.getNombre());
+        System.out.println(" Ya jugaste carta este turno");
+        return;
+    }
+
+    if(!mano.contains(m)){
+
+        System.out.println(" Ese mountruo no esta en tu mano ");
+        return;
+    }
+    mano.remove(m);
+    campo.add(m);
+    cartaJugadaEsteTurno = true;
+    System.out.println(nombre + " Invoca: " + m.getNombre());
+
 }
 
 public void recibirDanio(int danio){
@@ -176,11 +206,11 @@ public void eliminarCarta(Carta carta){
 
     boolean eliminada = false;
 
-    for (int i=0; i<cartas.size() && !eliminada; i++){
+    for (int i=0; i<mazo.size() && !eliminada; i++){
 
-        if(carta.getNombre().equals(cartas.get(i).getNombre())){
+        if(carta.getNombre().equals(mazo.get(i).getNombre())){
 
-            cartas.remove(i);
+            mazo.remove(i);
             eliminada = true;
         }
 
@@ -189,38 +219,44 @@ public void eliminarCarta(Carta carta){
 
 }
 
-public Carta robarCarta(){
+public boolean robarCarta(){
 
-    if(!cartas.isEmpty()){
-        Carta carta = cartas.remove(0);//se roba la primera carta
-        System.out.println( nombre + " roba " +carta.getNombre());
-        return carta;
+    if(!mazo.isEmpty()){
+        Carta carta = mazo.remove(0);//se roba la primera carta
+        mano.add(carta);
+        System.out.println( nombre + " roba " +carta.getNombre() + "- Cartas del mazo: " + mazo.size());
+        return true;
 
     }else{
 
-        System.out.println(" No hay cartas para robar ");
+        System.out.println(" No hay cartas para robar --PIERDE DUELO-- ");
         this.vida = 0;
-        return null;
+        return false;
     }
 
 }
 
 public void jugarMagia(CartaMagica carta){
 
-    if (!cartas.contains(carta)) {
+    if (cartaJugadaEsteTurno) {
 
-        System.out.println(" No tienes esa carta en la mano ");
+            System.out.println(" Ya jugaste una carta este turno ");
 
-        return;
-    }
+            return;
+        }
 
-    eliminarCarta(carta);
+        if (!mano.contains(carta)) {
 
-    System.out.println(nombre + " activa la carta magica: " + carta.getNombre());
+            System.out.println(" Esa carta mágica no está en tu mano ");
 
-    carta.activar(this);
+            return;
+        }
 
-    cementerio.add(carta);
+        mano.remove(carta);
+        cartaJugadaEsteTurno = true;
+        System.out.println(nombre + " activa la carta mágica: " + carta.getNombre());
+        carta.activar(this);
+        cementerio.add(carta);
     
 }
 
@@ -234,6 +270,8 @@ public void mostrarCementerio(){
 }
 
 }
+
+
 
 
 
