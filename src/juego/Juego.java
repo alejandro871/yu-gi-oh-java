@@ -63,9 +63,8 @@ public class Juego {
         System.out.println(" Turno de: " + jugadorActual.getNombre());
 
         jugadorActual.robarCarta();
-        jugadorActual.reiniciarAtaques();
+        jugadorActual.reiniciarTurno();
     }
-
 
     public Jugador getJugadorActual(){
 
@@ -123,7 +122,7 @@ public class Juego {
 
         System.out.println("----Fase final---- ");
 
-        jugadorActual.reiniciarAtaques();
+        jugadorActual.reiniciarTurno();
 
         primerTurnoPartida = false;
 

@@ -3,6 +3,10 @@
 import jugadores.Jugador;
 import juego.Mazo;
 import juego.Juego;
+import cartas.Carta;
+import cartas.Mounstruo;
+import cartas.CartaMagica;
+
 
 public class App {
 
@@ -17,10 +21,38 @@ public class App {
         Juego juego = new Juego(j1, j2);
         juego.estadoJuego();
 
-        System.out.println("\nCartas de " + j1.getNombre() + ":");
-        j1.mostrarCartas();
+        int turnosJugados = 0;
 
-        System.out.println("\nCartas de " + j2.getNombre() + ":");
-        j2.mostrarCartas();
-    }
+         while (!juego.hayGanador() && turnosJugados < 10) { //hasta 10 turnos o hasta que haya ganador 
+
+            Jugador actual = juego.getJugadorActual();
+
+            // jugamos la primera carta disponible en mano automáticamente
+            if (!actual.getMano().isEmpty()) {
+                Carta cartaAJugar = actual.getMano().get(0);
+
+                if (cartaAJugar instanceof Mounstruo) {
+
+                    actual.jugarMonstruo((Mounstruo) cartaAJugar);
+
+                } else if (cartaAJugar instanceof CartaMagica) {
+
+                    actual.jugarMagia((CartaMagica) cartaAJugar);
+                }
+            }
+
+            boolean continuarJuego = juego.ejecutarTurnoCompleto();
+
+            if(!continuarJuego);
+
+            juego.estadoJuego();
+
+            turnosJugados++;
+
+         }
+
+         System.out.println(" Fin de los turnos jugados ");
+
+        }
+
 }

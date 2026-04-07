@@ -14,6 +14,7 @@ public class Jugador {
     private ArrayList<Mounstruo> campo;
     private ArrayList<Carta> cementerio;
     private boolean cartaJugadaEsteTurno;
+    private boolean yaAtacoEsteTurno;
 
 
 public Jugador (String nombre){
@@ -99,26 +100,31 @@ public void eliminarMonstruo(Mounstruo m){
 
 public void atacarJugador( Jugador enemigo ){
 
-if (this.campo.isEmpty()){ //el isEmpty es para mirar lo que hay dentro de la lista y sebaer si esta vacia (sin mounstruos)
+if(yaAtacoEsteTurno){
 
-    System.out.println(" No tienes Mounstruos para atacar ");
+    System.out.println(" Ya ataco este turno ");
+}
+
+if (campo.isEmpty()){ //el isEmpty es para mirar lo que hay dentro de la lista y sebaer si esta vacia (sin mounstruos)
+
+    System.out.println( nombre +" No tienes Mounstruos para atacar ");
     return;
 
     }
 
-    Mounstruo atacante = null;
+ Mounstruo atacante = null;
 
-        for (Mounstruo m : campo) {
+     for (Mounstruo m : campo) {
 
-            if (!m.yaAtaco()) {
+        if (!m.yaAtaco()) {
 
-                atacante = m;
+           atacante = m;
 
-                break;
-
-            }
+           break;
 
         }
+
+     }
 
 if (atacante == null) {
 
@@ -134,30 +140,38 @@ if(enemigo.campo.isEmpty()){
 
      enemigo.recibirDanio(atacante.getAtk());//ataque directo
 
-    }else{
+     atacante.marcarAtaque();
+
+     yaAtacoEsteTurno = true;
+
+     return;
+
+    }
     
-    Mounstruo defensor = enemigo.campo.get(0);
+Mounstruo defensor = enemigo.campo.get(0);
         
-     int resultado = atacante.atacar(defensor);
+    int resultado = atacante.atacar(defensor);
     
 
 if  (resultado > 0){
 
-        System.out.println(atacante.getNombre() + " destruye a " + defensor.getNombre());
+        System.out.println(atacante.getNombre() + " destruye a " + defensor.getNombre() + " (diferencia: " + resultado + ")");
 
         enemigo.eliminarMonstruo(defensor);
 
         enemigo.recibirDanio(resultado);
 
+        atacante.marcarAtaque();
+
         }
 
-     else if(resultado < 0){
+        else if(resultado < 0){
 
-        System.out.println(defensor.getNombre() + " destruye a " + atacante.getNombre());
+            System.out.println(defensor.getNombre() + " destruye a " + atacante.getNombre() + " (diferencia: " + -resultado + ")");
 
-        this.eliminarMonstruo(atacante);
+            this.eliminarMonstruo(atacante);
 
-        this.recibirDanio(-resultado);
+            this.recibirDanio(-resultado);
 
         }else{
             
@@ -169,22 +183,26 @@ if  (resultado > 0){
 
         }
 
+        yaAtacoEsteTurno = true;
 
     }
-    
-    atacante.marcarAtaque();
 
-}
-
-public void reiniciarAtaques(){
+public void reiniciarTurno(){
 
     cartaJugadaEsteTurno = false;
+
+    yaAtacoEsteTurno = false;
 
     for (Mounstruo m : campo){
 
         m.reiniciarAtaque();
 
     }
+}
+
+public void reiniciarAtaque(){
+
+    reiniciarTurno();
 }
  
 public void jugarMonstruo(Mounstruo m){
