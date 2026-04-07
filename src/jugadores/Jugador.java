@@ -80,8 +80,13 @@ public void mostrarCampo(){
 
     System.out.println("Monstruos en campo de " + nombre + ":");
 
+    if(campo.isEmpty()){
+
+        System.out.println(" (vacio) ");
+    }
+
     for (Mounstruo m : campo){
-        System.out.println("- " + m.getNombre() + " ATK: " + m.getAtk());
+        System.out.println("- " + m.getNombre() + "--ATK: " + m.getAtk() + "--DEF: " + m.getDef());
     }
 }
 
@@ -291,10 +296,21 @@ public void mostrarMano(){
         }
     }
 
+public ArrayList <Carta> getMano(){
+
+    return mano;
 }
 
+public ArrayList<Mounstruo> getCampo(){
 
+    return campo;
+}
 
+public int getCartasMano(){
+
+    return mazo.size();
+}
+}
 
 
 
