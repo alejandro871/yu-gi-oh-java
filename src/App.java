@@ -43,15 +43,28 @@ public class App {
 
             boolean continuarJuego = juego.ejecutarTurnoCompleto();
 
-            if(!continuarJuego);
+            if(!continuarJuego){
+
+             System.out.println( " El duelo se acabo por tener mazo vacio ");
+
+             break;
+
+            }
+
 
             juego.estadoJuego();
-
             turnosJugados++;
 
-         }
+        }
 
-         System.out.println(" Fin de los turnos jugados ");
+
+         if (!juego.hayGanador()) {
+
+            System.out.println(" Se alcanzo el limite de turnos ");
+
+        }
+
+         System.out.println(" Fin de los turnos jugados, fueron: " + turnosJugados);
 
         }
 

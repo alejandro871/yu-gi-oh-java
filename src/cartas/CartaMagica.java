@@ -3,7 +3,7 @@ import efectos.Efecto;
 import jugadores.Jugador;
 
 
-public class CartaMagica extends Carta {
+public class CartaMagica extends Carta implements Activable {
 
     private Efecto efecto;
 
@@ -15,7 +15,7 @@ public class CartaMagica extends Carta {
 
     }
 
-   
+    @Override
     public void activar(Jugador jugador){
 
         System.out.println("Se activa carta magica: "+ getNombre());
