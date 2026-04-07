@@ -108,6 +108,9 @@ public class Mazo {
             j2.agregarCarta(mazo.get(i));       // siguientes 20 jugador 2
         }
 
+        j1.tomarManoInicial();
+        j2.tomarManoInicial();
+
         System.out.println("Cartas repartidas: 20 para " + j1.getNombre()
                 + " y 20 para " + j2.getNombre());
     }

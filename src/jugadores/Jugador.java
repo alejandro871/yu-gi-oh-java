@@ -306,7 +306,7 @@ public ArrayList<Mounstruo> getCampo(){
     return campo;
 }
 
-public int getCartasMano(){
+public int getCartasMazo(){
 
     return mazo.size();
 }

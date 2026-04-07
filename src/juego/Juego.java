@@ -1,18 +1,41 @@
 package juego;
 import jugadores.Jugador;
+import java.util.Random;
 
 public class Juego {
 
     private Jugador jugador1;
     private Jugador jugador2;
     private Jugador jugadorActual;
-    private boolean primerTurno = true;
+    private Jugador jugadorEnemigo;
+    private boolean primerTurnoPartida; //Solo es durante el primer turno 
+    private void cambiarTurno(){
+
+        Jugador temp = jugadorActual;
+        jugadorActual  = jugadorEnemigo;
+        jugadorEnemigo = temp;
+
+    }
 
     public Juego(Jugador j1 ,Jugador j2){
 
         this.jugador1 = j1;
         this.jugador2 = j2;
-        this.jugadorActual = j1;
+        
+        Random rand = new Random();
+
+        if(rand.nextBoolean()){
+
+            this.jugadorActual = j1;
+            this.jugadorEnemigo = j2;
+        }else{
+
+            this.jugadorActual = j2;
+            this.jugadorEnemigo = j1;
+        }
+
+        this.primerTurnoPartida = true;
+        System.out.println(jugadorActual.getNombre() + " va primero "); //Ahora si al azar
 
     }
 
@@ -31,9 +54,8 @@ public class Juego {
         System.out.println("-------------");
     }
 
-
     public boolean esPrimerTurno(){
-    return primerTurno;
+    return primerTurnoPartida;
 }
 
     public void iniciarTurno(){
@@ -44,19 +66,6 @@ public class Juego {
         jugadorActual.reiniciarAtaques();
     }
 
-    public void cambiarTurno(){
-
-        primerTurno = false;
-
-        if(jugadorActual == jugador1){
-
-            jugadorActual = jugador2;
-
-            } else {
-
-        jugadorActual = jugador1;
-        }
-    }
 
     public Jugador getJugadorActual(){
 
@@ -79,4 +88,67 @@ public class Juego {
 
 }
 
+    public boolean faseRobo(){
+
+        System.out.println("----Robo----");
+
+        return jugadorActual.robarCarta();
+    } 
+
+    public void faseBatalla(){
+
+        System.out.println("----Fase batalla----");
+
+        if (primerTurnoPartida) {
+
+            System.out.println(" Primer turno: no se puede atacar ");
+
+            return;
+        }
+
+        jugadorActual.atacarJugador(jugadorEnemigo);
+    }
+
+    public void fasePrincipal(){
+
+        System.out.println(" ----Fase principal---- ");
+
+        System.out.println(jugadorActual.getNombre() + " puede jugar 1 carta ");
+
+        jugadorActual.mostrarMano();
+
+    }
+
+    public void faseFinal(){
+
+        System.out.println("----Fase final---- ");
+
+        jugadorActual.reiniciarAtaques();
+
+        primerTurnoPartida = false;
+
+        cambiarTurno();
+
+        System.out.println(" Turno terminado ");
+    }
+
+    public boolean ejecutarTurnoCompleto(){
+
+        System.out.println("-----------------");
+        System.out.println(" Turno de: " + jugadorActual.getNombre());
+        System.out.println("-----------------");
+
+        if (!faseRobo()) return false; // mazo vacío  derrota
+
+        fasePrincipal();
+        faseBatalla();
+        faseFinal();
+
+        return true;
+    }
+
 }
+
+
+
+
