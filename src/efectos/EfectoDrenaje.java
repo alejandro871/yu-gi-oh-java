@@ -14,10 +14,13 @@ public class EfectoDrenaje implements Efecto {
     @Override
     public void activar(Jugador jugador) {
 
-        jugador.recibirDanio(cantidad);
-        jugador.setVida(jugador.getVida() + cantidad);
+        int costo = cantidad/2;
+        int curacion = cantidad;
 
-        System.out.println(" Drenado ");
+        jugador.recibirDanio(costo);
+        jugador.setVida(jugador.getVida() + curacion);
+
+        System.out.println(" Drenado: " + costo + " LP y recupero: " + curacion + " LP");
     }
 
     @Override

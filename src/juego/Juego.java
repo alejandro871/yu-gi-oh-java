@@ -1,5 +1,7 @@
 package juego;
 import jugadores.Jugador;
+import efectos.efectoTemporalAtk;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Juego {
@@ -9,6 +11,7 @@ public class Juego {
     private Jugador jugadorActual;
     private Jugador jugadorEnemigo;
     private boolean primerTurnoPartida; //Solo es durante el primer turno 
+    private ArrayList<efectoTemporalAtk> efectosTemporalesActivos;
     private void cambiarTurno(){
 
         Jugador temp = jugadorActual;
@@ -21,7 +24,9 @@ public class Juego {
 
         this.jugador1 = j1;
         this.jugador2 = j2;
-        
+
+        efectosTemporalesActivos = new ArrayList<>();
+
         Random rand = new Random();
 
         if(rand.nextBoolean()){
@@ -41,14 +46,14 @@ public class Juego {
 
     public void estadoJuego(){
 
-        System.out.println("------ESTADO DEL PARTIDA-----");
+        System.out.println("------ESTADO DE LA PARTIDA-----");
 
-        System.out.println(jugador1.getNombre() + " - LP: " + jugador1.getVida() );
+        System.out.println(jugador1.getNombre() + " - LP: " + jugador1.getVida() + "| Mazo: " + jugador1.getCartasMazo());
         jugador1.mostrarCampo();
 
         System.out.println("");
 
-        System.out.println(jugador2.getNombre() + " - LP: " + jugador2.getVida());
+        System.out.println(jugador2.getNombre() + " - LP: " + jugador2.getVida() + "| Mazo: " + jugador2.getCartasMazo());
         jugador2.mostrarCampo();
 
         System.out.println("-------------");
@@ -122,6 +127,12 @@ public class Juego {
 
         System.out.println("----Fase final---- ");
 
+        for(efectoTemporalAtk ef: efectosTemporalesActivos){
+            ef.revertir();
+        }
+
+        efectosTemporalesActivos.clear();
+
         jugadorActual.reiniciarTurno();
 
         primerTurnoPartida = false;
@@ -145,6 +156,18 @@ public class Juego {
 
         return true;
     }
+
+    public void registrarEfectoTemporal(efectoTemporalAtk efecto){
+
+        efectosTemporalesActivos.add(efecto);
+
+        }
+
+    public Jugador getJugadorEnemigo(){
+
+        return jugadorEnemigo;
+    }
+
 
 }
 

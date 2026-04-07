@@ -49,49 +49,59 @@ public class Mazo {
 
     
         mazo.add(new CartaMagica("Pot of Greed",
-                "Roba 2 cartas del mazo ",
+                " Roba 2 cartas del mazo ",
                 new PotOfGreed()));
 
-        mazo.add(new CartaMagica("Curación",
-                "Recupera 1500 LP ",
-                new EfectoCuracion(1500)));
+        mazo.add(new CartaMagica(" Curacion ",
+                " Recupera 800 LP ",
+                new EfectoCuracion(800)));
 
-        mazo.add(new CartaMagica("Daño",
-                "Inflige 800 de daño directo ",
+        efectoTemporalAtk terraforming = new efectoTemporalAtk(500);
+        mazo.add(new CartaMagica("Terraforming",    
+                " Ataque de un monstruo propio +500 por este turno ",
+                 terraforming));
+
+        mazo.add(new CartaMagica(" Orden de Destruccion ",
+                " Destruye el monstruo más débil del oponente ",    
+                new destruirMountruo()));
+
+        mazo.add(new CartaMagica(" Daño ",
+                " Inflige 800 de daño directo ",
                 new DanioInstantaneo(800)));
 
         mazo.add(new CartaMagica("Aumento ataque",
-                "Aumenta el ATK de un monstruo en 700 ",
+                " Aumenta el ATK de un monstruo en 700 ",
                 new AumentoAtaque(700)));
 
         mazo.add(new CartaMagica("Escudo",
-                "Aumenta la DEF de un monstruo en 900 ",
+                " Aumenta la DEF de un monstruo en 900 ",
                 new Escudo(900)));
 
         mazo.add(new CartaMagica("Doble ataque",
-                "Duplica el ATK de un monstruo ",
+                " Duplica el ATK de un monstruo ",
                 new DobleAtaque()));
 
         mazo.add(new CartaMagica("Debilidad",
-                "Reduce el ATK de un monstruo en 500 ",
+                " Reduce el ATK de un monstruo en 500 ",
                 new EfectoDebilidad(500)));
 
         mazo.add(new CartaMagica("Drenaje",
-                "Drena 600 LP del objetivo ",
+                " Drena 600 LP del objetivo ",
                 new EfectoDrenaje(600)));
 
-        mazo.add(new CartaMagica("Robo Curacion",
+        mazo.add(new CartaMagica(" Robo Curacion ",
                 "Roba 1 carta y gana 300 LP ",
                 new RoboDefinitivo()));
 
-        mazo.add(new CartaMagica("Reset",
-                "Restaura el ATK original de un monstruo ",
-                new ResetAtk()));
+        /*mazo.add(new CartaMagica("Reset",
+                " Restaura el ATK original de un monstruo ",
+                new ResetAtk()));*/
 
         System.out.println("Mazo creado con " + mazo.size() + " cartas ");
 
         return mazo;
     }
+
 
     // Mezcla el mazo 
     public static void repartir(Jugador j1, Jugador j2) {
@@ -112,6 +122,6 @@ public class Mazo {
         j2.tomarManoInicial();
 
         System.out.println("Cartas repartidas: 20 para " + j1.getNombre()
-                + " y 20 para " + j2.getNombre());
+                + " y 20 para " + j2.getNombre() + " Con 5 en mano y 15 en mazo cada uno ");
     }
 }
