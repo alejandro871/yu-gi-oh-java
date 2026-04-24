@@ -23,7 +23,7 @@ public class CartaTrampa extends Carta implements Activable {
 
     }
 
-     public void activar(Mounstruo mounstruo){
+    public void activar(Mounstruo mounstruo){
 
         System.out.println("Se activa carta trampa: "+ getNombre());
         efecto.activar(mounstruo);

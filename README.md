@@ -1,11 +1,18 @@
+<<<<<<< HEAD
 # Yu-Gi-Oh Java (GUI)
 
 Proyecto académico desarrollado en Java que simula un duelo completo de Yu-Gi-Oh con interfaz gráfica, aplicando principios de Programación Orientada a Objetos (POO).
+=======
+# 🃏 Yu-Gi-Oh Java (Consola)
+
+Proyecto académico desarrollado en Java que simula un duelo básico de Yu-Gi-Oh desde consola, aplicando principios de Programación Orientada a Objetos (POO).
+>>>>>>> 7b027d838d38431844a0980b682f7894a22c63b4
 
 ---
 
 ##  Características
 
+<<<<<<< HEAD
 - **Sistema completo de cartas**: Monstruos, Cartas Mágicas y Cartas Trampa
 - **Mecánica de turnos**: Robo, invocación, combate y fase final
 - **Sistema de combate avanzado**: ATK vs DEF, ataques directos, sacrificios para cartas de alto nivel
@@ -147,3 +154,55 @@ src/
 ---
 
 **"Confía en el corazón de las cartas" — Yugi Muto**
+=======
+- Creación de cartas (Monstruo, Mágicas)
+- Sistema de efectos mediante interfaces
+- Uso de herencia y polimorfismo
+- Gestión de jugadores
+- Ejecución desde consola
+
+---
+
+##  Estructura del proyecto
+
+src/
+├── cartas/
+├── efectos/
+├── jugadores/
+├── juego/
+└── App.java
+
+
+---
+
+##  Lo que use
+
+- Java
+- VS Code
+- Git & GitHub
+
+---
+
+##  Ejecución
+
+1. Compilar el proyecto
+2. Ejecutar `App.java`
+
+---
+
+## 📌 Conceptos aplicados
+
+- Clases y objetos
+- Herencia (`extends`)
+- Interfaces (`implements`)
+- Polimorfismo
+- Encapsulamiento
+
+---
+
+##  Autor
+
+- Alejandro Jaramillo
+
+
+>>>>>>> 7b027d838d38431844a0980b682f7894a22c63b4
