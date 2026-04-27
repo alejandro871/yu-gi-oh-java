@@ -163,48 +163,5 @@ src/
 
 ---
 
-##  Estructura del proyecto
-
-src/
-├── cartas/
-├── efectos/
-├── jugadores/
-├── juego/
-└── App.java
-
-
----
-
-##  Lo que use
-
-- Java
-- VS Code
-- Git & GitHub
-
----
-
-##  Ejecución
-
-1. Compilar el proyecto
-2. Ejecutar `App.java`
-
----
-
-## 📌 Conceptos aplicados
-
-- Clases y objetos
-- Herencia (`extends`)
-- Interfaces (`implements`)
-- Polimorfismo
-- Encapsulamiento
-
----
-
-##  Autores
-
-- Alejandro Jaramillo
-- Alejandro Galeano -2477228
-- Karen Berg -2459506
-- Juan Polania Navarro
 
 >>>>>>> 7b027d838d38431844a0980b682f7894a22c63b4
