@@ -200,9 +200,10 @@ src/
 
 ---
 
-##  Autor
+##  Autores
 
 - Alejandro Jaramillo
-
+- Alejandro Galeano -2477228
+- Karen Berg -2459506
 
 >>>>>>> 7b027d838d38431844a0980b682f7894a22c63b4
