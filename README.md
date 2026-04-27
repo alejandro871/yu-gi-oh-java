@@ -140,7 +140,7 @@ src/
 - Alejandro Jaramillo
 - Karen Elizabeth Berg Garcia
 - Juan Polania Navarro
-
+- Alejandro Galeano Castro
 
 ---
 
@@ -205,5 +205,6 @@ src/
 - Alejandro Jaramillo
 - Alejandro Galeano -2477228
 - Karen Berg -2459506
+- Juan Polania Navarro
 
 >>>>>>> 7b027d838d38431844a0980b682f7894a22c63b4
