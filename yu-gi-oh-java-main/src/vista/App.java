@@ -2,6 +2,7 @@ package vista;
 
 import cartas.Carta;
 import cartas.CartaMagica;
+import cartas.CartaTrampa;
 import cartas.Monstruo;
 import jugadores.Jugador;
 import juego.Mazo;
@@ -84,11 +85,11 @@ public class App {
         vista.mostrarManoConTipo(actual);
 
         vista.mostrarMensaje(" ¿Qué deseas hacer? ");
-        vista.mostrarOpciones(new String[]{"Jugar una carta", "Pasar (no jugar carta este turno)"});
+        vista.mostrarOpciones(new String[]{"Invocar Monstruo", "Activar Carta Mágica", "Poner Carta Trampa", "Pasar (no jugar carta este turno)"});
 
-        int opcion = vista.leerEntero(1, 2);
+        int opcion = vista.leerEntero(1, 4);
 
-        if (opcion == 2) {
+        if (opcion == 4) {
             vista.mostrarMensaje(" " + actual.getNombre() + " decide no jugar carta ");
             return;
         }
@@ -105,13 +106,35 @@ public class App {
 
         Carta cartaElegida = actual.getMano().get(indice - 1);
 
-        if (cartaElegida instanceof Monstruo) {
-            actual.jugarMonstruo((Monstruo) cartaElegida);
-            vista.mostrarCartaJugada(actual.getNombre(), cartaElegida.getNombre());
-        } else if (cartaElegida instanceof CartaMagica) {
-            CartaMagica magica = (CartaMagica) cartaElegida;
-            actual.jugarMagia(magica);
-            vista.mostrarCartaJugada(actual.getNombre(), cartaElegida.getNombre());
+        switch (opcion) {
+            case 1:
+                if (cartaElegida instanceof Monstruo) {
+                    actual.jugarMonstruo((Monstruo) cartaElegida);
+                    vista.mostrarCartaJugada(actual.getNombre(), cartaElegida.getNombre());
+                } else {
+                    vista.mostrarMensaje("La carta seleccionada no es un monstruo.");
+                }
+                break;
+            case 2:
+                if (cartaElegida instanceof CartaMagica) {
+                    CartaMagica magica = (CartaMagica) cartaElegida;
+                    actual.jugarMagia(magica);
+                    vista.mostrarCartaJugada(actual.getNombre(), cartaElegida.getNombre());
+                } else {
+                    vista.mostrarMensaje("La carta seleccionada no es una carta mágica.");
+                }
+                break;
+            case 3:
+                if (cartaElegida instanceof CartaTrampa) {
+                    actual.ponerTrampa((CartaTrampa) cartaElegida);
+                    vista.mostrarCartaJugada(actual.getNombre(), cartaElegida.getNombre());
+                } else {
+                    vista.mostrarMensaje("La carta seleccionada no es una carta trampa.");
+                }
+                break;
+            default:
+                vista.mostrarMensaje("Opción inválida.");
+                break;
         }
     }
 
@@ -150,6 +173,20 @@ public class App {
             return;
         }
 
+        if (!enemigo.getTrampasEnCampo().isEmpty()) {
+            vista.mostrarMensaje(enemigo.getNombre() + ", ¿deseas activar una trampa?");
+            vista.mostrarOpciones(new String[]{"Si", "No"});
+            int activar = vista.leerEntero(1, 2);
+            if (activar == 1) {
+                int eleTrampa = vista.seleccionarTrampaEnCampo(enemigo, "Selecciona la trampa a activar:");
+                if (eleTrampa != 0) {
+                    CartaTrampa trampa = enemigo.getTrampasEnCampo().get(eleTrampa - 1);
+                    enemigo.activarTrampa(trampa, atacante);
+                    vista.mostrarCartaJugada(enemigo.getNombre(), trampa.getNombre());
+                }
+            }
+        }
+
         if (!enemigo.getCampo().isEmpty()) {
             int eleDefensor = vista.seleccionarMonstruoCampo(enemigo, "Elige el objetivo del ataque:");
             if (eleDefensor == 0) {
@@ -160,7 +197,7 @@ public class App {
             java.util.Collections.swap(enemigo.getCampo(), 0, eleDefensor - 1);
         }
 
-        actual.atacarJugador(enemigo);
+        actual.atacarJugador(enemigo, atacante);
     }
 
     private static String obtenerNombreJugador(String mensaje) {

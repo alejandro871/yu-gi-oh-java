@@ -107,22 +107,25 @@ public class InterfazGrafica implements Vista {
 
         String tipo = "";
         Color color = Color.GRAY;
+        String descripcion = "";
 
         if (carta instanceof Monstruo) {
             Monstruo m = (Monstruo) carta;
             tipo = "MONSTRUO";
             color = Color.RED;
-            button.setText("<html><center>" + carta.getNombre() + "<br/>ATK: " + m.getAtk() + "<br/>DEF: " + m.getDef() + "</center></html>");
+            descripcion = "ATK: " + m.getAtk() + "   DEF: " + m.getDef();
         } else if (carta instanceof CartaMagica) {
             tipo = "MÁGICA";
             color = Color.BLUE;
-            button.setText("<html><center>" + carta.getNombre() + "<br/>Carta Mágica</center></html>");
+            descripcion = "Activar efecto";
         } else if (carta instanceof CartaTrampa) {
             tipo = "TRAMPA";
             color = Color.ORANGE;
-            button.setText("<html><center>" + carta.getNombre() + "<br/>Carta Trampa</center></html>");
+            descripcion = "Poner en campo";
         }
 
+        button.setText("<html><center>" + carta.getNombre() + "<br/><b>" + tipo + "</b><br/>" + descripcion + "</center></html>");
+        button.setToolTipText("Selecciona esta carta para jugarla");
         button.setBackground(color);
         button.setForeground(Color.WHITE);
         button.setBorder(BorderFactory.createRaisedBevelBorder());
@@ -225,19 +228,19 @@ public class InterfazGrafica implements Vista {
 
     @Override
     public int leerEntero(int min, int max) {
-        if (min == 1 && max == 2) {
-            // Caso especial para opciones de acción
-            actionPanel.removeAll();
-            actionButtons = new JButton[2];
-            actionButtons[0] = createActionButton("Jugar una carta", 1);
-            actionButtons[1] = createActionButton("Pasar turno", 2);
-            actionPanel.add(actionButtons[0]);
-            actionPanel.add(actionButtons[1]);
+        actionPanel.removeAll();
+
+        if (min >= 1 && max >= min) {
+            int count = max - min + 1;
+            actionButtons = new JButton[count];
+            for (int i = 0; i < count; i++) {
+                int value = min + i;
+                actionButtons[i] = createActionButton("Opción " + value, value);
+                actionPanel.add(actionButtons[i]);
+            }
             actionPanel.revalidate();
             actionPanel.repaint();
         } else if (min == 0 && max > 0) {
-            // Caso para selección de cartas (incluye opción 0 para cancelar)
-            actionPanel.removeAll();
             JButton cancelButton = createActionButton("Cancelar", 0);
             actionPanel.add(cancelButton);
             actionPanel.revalidate();
@@ -351,6 +354,55 @@ public class InterfazGrafica implements Vista {
         }
 
         // Limpiar botones después de la selección
+        actionPanel.removeAll();
+        actionPanel.revalidate();
+        actionPanel.repaint();
+
+        return selectedValue;
+    }
+
+    @Override
+    public int seleccionarTrampaEnCampo(Jugador jugador, String mensaje) {
+        mostrarMensaje(mensaje);
+        mostrarMensaje("  [0] Cancelar");
+
+        actionPanel.removeAll();
+        JButton cancelButton = createActionButton("Cancelar", 0);
+        actionPanel.add(cancelButton);
+
+        List<CartaTrampa> trampas = jugador.getTrampasEnCampo();
+        JButton[] trapButtons = new JButton[trampas.size()];
+        for (int i = 0; i < trampas.size(); i++) {
+            CartaTrampa t = trampas.get(i);
+            JButton trapButton = new JButton();
+            trapButton.setPreferredSize(new Dimension(140, 40));
+            trapButton.setText("<html><center>" + t.getNombre() + "</center></html>");
+            trapButton.setBackground(Color.ORANGE);
+            trapButton.setForeground(Color.BLACK);
+
+            final int index = i + 1;
+            trapButton.addActionListener(e -> {
+                selectedValue = index;
+                if (latch != null) {
+                    latch.countDown();
+                }
+            });
+
+            trapButtons[i] = trapButton;
+            actionPanel.add(trapButton);
+        }
+
+        actionPanel.revalidate();
+        actionPanel.repaint();
+
+        latch = new CountDownLatch(1);
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            return 0;
+        }
+
         actionPanel.removeAll();
         actionPanel.revalidate();
         actionPanel.repaint();

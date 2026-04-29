@@ -20,4 +20,5 @@ public interface Vista {
     void mostrarAtaque(String atacante, String defensor, int dano);
     void mostrarResultadoAtaque(String resultado);
     int seleccionarMonstruoCampo(Jugador jugador, String mensaje);
+    int seleccionarTrampaEnCampo(Jugador jugador, String mensaje);
 }

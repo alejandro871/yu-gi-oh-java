@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import cartas.Carta;
 import cartas.Monstruo;
 import cartas.CartaMagica;
+import cartas.CartaTrampa;
 
 
 public class Jugador {
@@ -12,6 +13,7 @@ public class Jugador {
     private ArrayList<Carta> mano; //es una lista de cartas que tiene el jugaodor
     private ArrayList<Carta> mazo;
     private ArrayList<Monstruo> campo;
+    private ArrayList<CartaTrampa> trampasEnCampo = new ArrayList<>();
     private ArrayList<Carta> cementerio;
     private boolean cartaJugadaEsteTurno;
     private boolean yaAtacoEsteTurno;
@@ -98,94 +100,73 @@ public void eliminarMonstruo(Monstruo m){
     System.out.println( m.getNombre() + " fue enviado al cementerio ");
 }
 
-public void atacarJugador( Jugador enemigo ){
+public void atacarJugador(Jugador enemigo, Monstruo atacante) {
 
-if(yaAtacoEsteTurno){
+    if (yaAtacoEsteTurno) {
+        System.out.println(" Ya ataco este turno ");
+        return;
+    }
 
-    System.out.println(" Ya ataco este turno ");
+    if (!campo.contains(atacante)) {
+        System.out.println(" Ese monstruo no está en tu campo ");
+        return;
+    }
+
+    if (atacante.yaAtaco()) {
+        System.out.println(" Ese monstruo ya ataco este turno ");
+        return;
+    }
+
+    if (enemigo.campo.isEmpty()) {
+        System.out.println("¡" + atacante.getNombre() + " ataca directamente! ");
+        enemigo.recibirDanio(atacante.getAtk());//ataque directo
+        atacante.marcarAtaque();
+        yaAtacoEsteTurno = true;
+        return;
+    }
+
+    Monstruo defensor = enemigo.campo.get(0);
+    int resultado = atacante.atacar(defensor);
+
+    if (resultado > 0) {
+        System.out.println(atacante.getNombre() + " destruye a " + defensor.getNombre() + " (diferencia: " + resultado + ")");
+        enemigo.eliminarMonstruo(defensor);
+        enemigo.recibirDanio(resultado);
+        atacante.marcarAtaque();
+    } else if (resultado < 0) {
+        System.out.println(defensor.getNombre() + " destruye a " + atacante.getNombre() + " (diferencia: " + -resultado + ")");
+        this.eliminarMonstruo(atacante);
+        this.recibirDanio(-resultado);
+    } else {
+        System.out.println("Ambos monstruos se destruyen");
+        this.eliminarMonstruo(atacante);
+        enemigo.eliminarMonstruo(defensor);
+    }
+
+    yaAtacoEsteTurno = true;
 }
 
-if (campo.isEmpty()){ //el isEmpty es para mirar lo que hay dentro de la lista y sebaer si esta vacia (sin Monstruos)
-
-    System.out.println( nombre +" No tienes Monstruos para atacar ");
-    return;
-
+public void atacarJugador(Jugador enemigo) {
+    if (campo.isEmpty()) {
+        System.out.println(nombre + " No tienes Monstruos para atacar ");
+        return;
     }
 
- Monstruo atacante = null;
-
-     for (Monstruo m : campo) {
-
+    Monstruo atacante = null;
+    for (Monstruo m : campo) {
         if (!m.yaAtaco()) {
-
-           atacante = m;
-
-           break;
-
+            atacante = m;
+            break;
         }
-
-     }
-
-if (atacante == null) {
-
-    System.out.println(" Todos tus monstruos ya atacaron este turno ");
-
-    return;
     }
 
-
-if(enemigo.campo.isEmpty()){
-
-     System.out.println("¡" + atacante.getNombre() + " ataca directamente! ");
-
-     enemigo.recibirDanio(atacante.getAtk());//ataque directo
-
-     atacante.marcarAtaque();
-
-     yaAtacoEsteTurno = true;
-
-     return;
-
+    if (atacante == null) {
+        System.out.println(" Todos tus monstruos ya atacaron este turno ");
+        return;
     }
-    
-Monstruo defensor = enemigo.campo.get(0);
-        
-    int resultado = atacante.atacar(defensor);
-    
 
-if  (resultado > 0){
-
-        System.out.println(atacante.getNombre() + " destruye a " + defensor.getNombre() + " (diferencia: " + resultado + ")");
-
-        enemigo.eliminarMonstruo(defensor);
-
-        enemigo.recibirDanio(resultado);
-
-        atacante.marcarAtaque();
-
-        }
-
-        else if(resultado < 0){
-
-            System.out.println(defensor.getNombre() + " destruye a " + atacante.getNombre() + " (diferencia: " + -resultado + ")");
-
-            this.eliminarMonstruo(atacante);
-
-            this.recibirDanio(-resultado);
-
-        }else{
-            
-            System.out.println("Ambos monstruos se destruyen");
-
-            this.eliminarMonstruo(atacante);
-
-            enemigo.eliminarMonstruo(defensor);
-
-        }
-
-        yaAtacoEsteTurno = true;
-
-    }
+    atacarJugador(enemigo, atacante);
+}
 
 public void reiniciarTurno(){
 
@@ -292,6 +273,36 @@ public void jugarMagia(CartaMagica carta){
         carta.activar(this);
         cementerio.add(carta);
     
+}
+
+public void ponerTrampa(CartaTrampa trampa) {
+    if (cartaJugadaEsteTurno) {
+        System.out.println(" Ya jugaste una carta este turno ");
+        return;
+    }
+    if (!mano.contains(trampa)) {
+        System.out.println(" Esa carta trampa no está en tu mano ");
+        return;
+    }
+    mano.remove(trampa);
+    trampasEnCampo.add(trampa);
+    cartaJugadaEsteTurno = true;
+    System.out.println(nombre + " coloca la trampa: " + trampa.getNombre());
+}
+
+public ArrayList<CartaTrampa> getTrampasEnCampo() {
+    return trampasEnCampo;
+}
+
+public void activarTrampa(CartaTrampa trampa, Monstruo atacante) {
+    if (!trampasEnCampo.contains(trampa)) {
+        System.out.println("La trampa no está en el campo");
+        return;
+    }
+    trampasEnCampo.remove(trampa);
+    System.out.println(nombre + " activa la trampa: " + trampa.getNombre());
+    trampa.activar(atacante);
+    cementerio.add(trampa);
 }
 
 public void mostrarCementerio(){

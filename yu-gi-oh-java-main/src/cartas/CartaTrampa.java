@@ -7,28 +7,25 @@ public class CartaTrampa extends Carta implements Activable {
 
     private Efecto efecto;
 
-
-    public CartaTrampa (String nombre, String descripcion, Efecto efecto){
-
-        super (nombre, descripcion);
+    public CartaTrampa(String nombre, String descripcion, Efecto efecto) {
+        super(nombre, descripcion);
         this.efecto = efecto;
-
     }
 
     @Override
-    public void activar(Jugador jugador){
-
-        System.out.println("Se activa carta trampa: "+ getNombre());
+    public void activar(Jugador jugador) {
+        System.out.println("Se activa carta trampa: " + getNombre());
         efecto.activar(jugador);
-
     }
 
-    public void activar(Monstruo Monstruo){
-
-        System.out.println("Se activa carta trampa: "+ getNombre());
-        efecto.activar(Monstruo);
-
+    public void activar(Monstruo monstruo) {
+        System.out.println("Se activa carta trampa: " + getNombre());
+        efecto.activar(monstruo);
     }
 
-    
+    public void jugar(Jugador jugador) {
+        System.out.println(jugador.getNombre() + " juega la trampa: " + getNombre());
+        jugador.ponerTrampa(this);
+    }
 }
+
