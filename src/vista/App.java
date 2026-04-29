@@ -2,14 +2,14 @@ package vista;
 
 import cartas.Carta;
 import cartas.CartaMagica;
-import cartas.Mounstruo;
+import cartas.Monstruo;
 import jugadores.Jugador;
 import juego.Mazo;
 import juego.Juego;
 
 public class App {
 
-    private static final Vista vista = new InterfasGrafica();
+    private static final Vista vista = new InterfazGrafica();
 
     public static void main(String[] args) {
 
@@ -105,8 +105,8 @@ public class App {
 
         Carta cartaElegida = actual.getMano().get(indice - 1);
 
-        if (cartaElegida instanceof Mounstruo) {
-            actual.jugarMonstruo((Mounstruo) cartaElegida);
+        if (cartaElegida instanceof Monstruo) {
+            actual.jugarMonstruo((Monstruo) cartaElegida);
             vista.mostrarCartaJugada(actual.getNombre(), cartaElegida.getNombre());
         } else if (cartaElegida instanceof CartaMagica) {
             CartaMagica magica = (CartaMagica) cartaElegida;
@@ -143,7 +143,7 @@ public class App {
             return;
         }
 
-        cartas.Mounstruo atacante = actual.getCampo().get(eleAtacante - 1);
+        cartas.Monstruo atacante = actual.getCampo().get(eleAtacante - 1);
 
         if (atacante.yaAtaco()) {
             vista.mostrarMensaje(" Ese monstruo ya ataco este turno ");

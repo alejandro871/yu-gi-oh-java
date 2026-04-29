@@ -1,6 +1,6 @@
 package efectos;
 
-import cartas.Mounstruo;
+import cartas.Monstruo;
 import jugadores.Jugador;
 
 public class DobleAtaque implements Efecto {
@@ -9,9 +9,9 @@ public class DobleAtaque implements Efecto {
     public void activar(Jugador jugador) {}
 
     @Override
-    public void activar(Mounstruo mounstruo) {
+    public void activar(Monstruo Monstruo) {
 
-        mounstruo.setAtk(mounstruo.getAtk() * 2);
+        Monstruo.setAtk(Monstruo.getAtk() * 2);
 
         System.out.println(" El ataque se duplica ");
     }

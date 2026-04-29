@@ -1,6 +1,6 @@
 package efectos;
 
-import cartas.Mounstruo;
+import cartas.Monstruo;
 import jugadores.Jugador;
 
 public class ResetAtk implements Efecto {
@@ -9,9 +9,9 @@ public class ResetAtk implements Efecto {
     public void activar(Jugador jugador) {}
 
     @Override
-    public void activar(Mounstruo mounstruo) {
+    public void activar(Monstruo Monstruo) {
 
-        mounstruo.resetAtk();
+        Monstruo.resetAtk();
 
         System.out.println(" El ataque vuelve a su valor original ");
     }

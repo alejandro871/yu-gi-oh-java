@@ -1,7 +1,7 @@
 package jugadores;
 import java.util.ArrayList;
 import cartas.Carta;
-import cartas.Mounstruo;
+import cartas.Monstruo;
 import cartas.CartaMagica;
 
 
@@ -11,7 +11,7 @@ public class Jugador {
     private int vida;
     private ArrayList<Carta> mano; //es una lista de cartas que tiene el jugaodor
     private ArrayList<Carta> mazo;
-    private ArrayList<Mounstruo> campo;
+    private ArrayList<Monstruo> campo;
     private ArrayList<Carta> cementerio;
     private boolean cartaJugadaEsteTurno;
     private boolean yaAtacoEsteTurno;
@@ -86,12 +86,12 @@ public void mostrarCampo(){
         System.out.println(" (vacio) ");
     }
 
-    for (Mounstruo m : campo){
+    for (Monstruo m : campo){
         System.out.println("- " + m.getNombre() + "--ATK: " + m.getAtk() + "--DEF: " + m.getDef());
     }
 }
 
-public void eliminarMonstruo(Mounstruo m){
+public void eliminarMonstruo(Monstruo m){
 
     campo.remove(m);
     cementerio.add(m);
@@ -105,16 +105,16 @@ if(yaAtacoEsteTurno){
     System.out.println(" Ya ataco este turno ");
 }
 
-if (campo.isEmpty()){ //el isEmpty es para mirar lo que hay dentro de la lista y sebaer si esta vacia (sin mounstruos)
+if (campo.isEmpty()){ //el isEmpty es para mirar lo que hay dentro de la lista y sebaer si esta vacia (sin Monstruos)
 
-    System.out.println( nombre +" No tienes Mounstruos para atacar ");
+    System.out.println( nombre +" No tienes Monstruos para atacar ");
     return;
 
     }
 
- Mounstruo atacante = null;
+ Monstruo atacante = null;
 
-     for (Mounstruo m : campo) {
+     for (Monstruo m : campo) {
 
         if (!m.yaAtaco()) {
 
@@ -148,7 +148,7 @@ if(enemigo.campo.isEmpty()){
 
     }
     
-Mounstruo defensor = enemigo.campo.get(0);
+Monstruo defensor = enemigo.campo.get(0);
         
     int resultado = atacante.atacar(defensor);
     
@@ -193,7 +193,7 @@ public void reiniciarTurno(){
 
     yaAtacoEsteTurno = false;
 
-    for (Mounstruo m : campo){
+    for (Monstruo m : campo){
 
         m.reiniciarAtaque();
 
@@ -205,7 +205,7 @@ public void reiniciarAtaque(){
     reiniciarTurno();
 }
  
-public void jugarMonstruo(Mounstruo m){
+public void jugarMonstruo(Monstruo m){
 
     if(cartaJugadaEsteTurno){
 
@@ -319,7 +319,7 @@ public ArrayList <Carta> getMano(){
     return mano;
 }
 
-public ArrayList<Mounstruo> getCampo(){
+public ArrayList<Monstruo> getCampo(){
 
     return campo;
 }

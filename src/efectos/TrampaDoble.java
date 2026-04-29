@@ -1,6 +1,6 @@
 package efectos;
 
-import cartas.Mounstruo;
+import cartas.Monstruo;
 import jugadores.Jugador;
 
 public class TrampaDoble implements Efecto {
@@ -13,10 +13,10 @@ public class TrampaDoble implements Efecto {
     }
 
     @Override
-    public void activar(Mounstruo mounstruo) {
-        int defActual = mounstruo.getDef();
+    public void activar(Monstruo Monstruo) {
+        int defActual = Monstruo.getDef();
         int nuevaDef = defActual * 2;
-        mounstruo.setDef(nuevaDef);
+        Monstruo.setDef(nuevaDef);
         System.out.println(" ¡Trampa Doble activada! DEF se duplica a " + nuevaDef);
     }
 }

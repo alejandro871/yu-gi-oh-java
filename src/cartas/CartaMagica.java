@@ -25,10 +25,10 @@ public class CartaMagica extends Carta implements Activable {
     }
 
 
-     public void activar(Mounstruo mounstruo){
+     public void activar(Monstruo Monstruo){
 
         System.out.println("Se activa carta magica: "+ getNombre());
-        efecto.activar(mounstruo);
+        efecto.activar(Monstruo);
 
 
     }

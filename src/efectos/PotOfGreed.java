@@ -1,5 +1,5 @@
 package efectos;
-import cartas.Mounstruo;
+import cartas.Monstruo;
 import jugadores.Jugador;
 
 
@@ -16,7 +16,7 @@ public class PotOfGreed implements Efecto{
     }
 
     @Override
-    public void activar(Mounstruo mounstruo){
+    public void activar(Monstruo Monstruo){
 
         //no hace nada
     }

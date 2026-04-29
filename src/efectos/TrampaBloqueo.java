@@ -1,6 +1,6 @@
 package efectos;
 
-import cartas.Mounstruo;
+import cartas.Monstruo;
 import jugadores.Jugador;
 
 public class TrampaBloqueo implements Efecto {
@@ -13,7 +13,7 @@ public class TrampaBloqueo implements Efecto {
     }
 
     @Override
-    public void activar(Mounstruo mounstruo) {
-        System.out.println(" ¡Trampa Bloqueo activada! El ataque de " + mounstruo.getNombre() + " es bloqueado");
+    public void activar(Monstruo Monstruo) {
+        System.out.println(" ¡Trampa Bloqueo activada! El ataque de " + Monstruo.getNombre() + " es bloqueado");
     }
 }

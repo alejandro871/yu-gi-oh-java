@@ -1,6 +1,6 @@
 package efectos;
 
-import cartas.Mounstruo;
+import cartas.Monstruo;
 import jugadores.Jugador;
 
 public class TrampaDestructor implements Efecto {
@@ -14,8 +14,8 @@ public class TrampaDestructor implements Efecto {
     }
 
     @Override
-    public void activar(Mounstruo mounstruo) {
-        System.out.println(" ¡Trampa Destructor activada! El monstruo " + mounstruo.getNombre() + " es destruido");
+    public void activar(Monstruo Monstruo) {
+        System.out.println(" ¡Trampa Destructor activada! El monstruo " + Monstruo.getNombre() + " es destruido");
         // El monstruo es marcado pero la eliminación real ocurre en la lógica del juego
     }
 }

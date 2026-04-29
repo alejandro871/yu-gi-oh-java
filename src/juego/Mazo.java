@@ -1,7 +1,7 @@
 package juego;
 
 import cartas.Carta;
-import cartas.Mounstruo;
+import cartas.Monstruo;
 import cartas.CartaMagica;
 import cartas.CartaTrampa;
 import efectos.*;
@@ -16,36 +16,36 @@ public static ArrayList<Carta> crearMazo() {
 
         ArrayList<Carta> mazo = new ArrayList<>();
 
-        mazo.add(new Mounstruo("Dragon Blanco", 2200, 2000, 8, ""));
-        mazo.add(new Mounstruo("Guerrero", 900, 1000, 4, ""));
-        mazo.add(new Mounstruo("Mago", 1500, 1400, 5, ""));
-        mazo.add(new Mounstruo("Bestia", 2000, 1800, 6, ""));
-        mazo.add(new Mounstruo("Titan", 2100, 1900, 7, ""));
-        mazo.add(new Mounstruo("Caballero", 1100, 900, 2, ""));
-        mazo.add(new Mounstruo("Zombie", 800, 900, 1, ""));
-        mazo.add(new Mounstruo("Vampiro", 2600, 1000, 9, ""));
-        mazo.add(new Mounstruo("Pitbull", 2800, 3000, 12, ""));
-        mazo.add(new Mounstruo("Golem", 2800, 2500, 10, ""));
-        mazo.add(new Mounstruo("Esqueleto", 1000, 1200, 3, ""));
-        mazo.add(new Mounstruo("Tarantula", 1100, 900, 4, ""));
-        mazo.add(new Mounstruo("Gigante", 1800, 2500, 9, ""));
-        mazo.add(new Mounstruo("Ciclope", 2800, 2000, 11, ""));
-        mazo.add(new Mounstruo("Piraña", 700, 1000, 1, ""));
-        mazo.add(new Mounstruo("Principe", 800, 800, 1, ""));
-        mazo.add(new Mounstruo("Principe Oscuro", 1200, 1000, 2, ""));
-        mazo.add(new Mounstruo("Rey Esqueleto", 2500, 2900, 12, ""));
-        mazo.add(new Mounstruo("Caballero Dorado", 1700, 800, 7, ""));
-        mazo.add(new Mounstruo("Golem Oscuro", 2300, 2200, 8, ""));
-        mazo.add(new Mounstruo("Leon", 2100, 2500, 8, ""));
-        mazo.add(new Mounstruo("Mago Oscuro", 1500, 1200, 5, ""));
-        mazo.add(new Mounstruo("Mago Electrico", 1000, 1100, 1, ""));
-        mazo.add(new Mounstruo("Furia Nocturna", 2600, 2800, 11, ""));
-        mazo.add(new Mounstruo("Duende", 2500, 2000, 7, ""));
-        mazo.add(new Mounstruo("Anguila", 1400, 1400, 4, ""));
-        mazo.add(new Mounstruo("Lombris Sangrienta", 1900, 2000, 8, ""));
-        mazo.add(new Mounstruo("Araña Aguja", 2200, 2000, 6, ""));
-        mazo.add(new Mounstruo("Sativa", 2200, 2800, 10, ""));
-        mazo.add(new Mounstruo("Golem", 2000, 2500, 8, ""));
+        mazo.add(new Monstruo("Dragon Blanco", 2200, 2000, 8, ""));
+        mazo.add(new Monstruo("Guerrero", 900, 1000, 4, ""));
+        mazo.add(new Monstruo("Mago", 1500, 1400, 5, ""));
+        mazo.add(new Monstruo("Bestia", 2000, 1800, 6, ""));
+        mazo.add(new Monstruo("Titan", 2100, 1900, 7, ""));
+        mazo.add(new Monstruo("Caballero", 1100, 900, 2, ""));
+        mazo.add(new Monstruo("Zombie", 800, 900, 1, ""));
+        mazo.add(new Monstruo("Vampiro", 2600, 1000, 9, ""));
+        mazo.add(new Monstruo("Pitbull", 2800, 3000, 12, ""));
+        mazo.add(new Monstruo("Golem", 2800, 2500, 10, ""));
+        mazo.add(new Monstruo("Esqueleto", 1000, 1200, 3, ""));
+        mazo.add(new Monstruo("Tarantula", 1100, 900, 4, ""));
+        mazo.add(new Monstruo("Gigante", 1800, 2500, 9, ""));
+        mazo.add(new Monstruo("Ciclope", 2800, 2000, 11, ""));
+        mazo.add(new Monstruo("Piraña", 700, 1000, 1, ""));
+        mazo.add(new Monstruo("Principe", 800, 800, 1, ""));
+        mazo.add(new Monstruo("Principe Oscuro", 1200, 1000, 2, ""));
+        mazo.add(new Monstruo("Rey Esqueleto", 2500, 2900, 12, ""));
+        mazo.add(new Monstruo("Caballero Dorado", 1700, 800, 7, ""));
+        mazo.add(new Monstruo("Golem Oscuro", 2300, 2200, 8, ""));
+        mazo.add(new Monstruo("Leon", 2100, 2500, 8, ""));
+        mazo.add(new Monstruo("Mago Oscuro", 1500, 1200, 5, ""));
+        mazo.add(new Monstruo("Mago Electrico", 1000, 1100, 1, ""));
+        mazo.add(new Monstruo("Furia Nocturna", 2600, 2800, 11, ""));
+        mazo.add(new Monstruo("Duende", 2500, 2000, 7, ""));
+        mazo.add(new Monstruo("Anguila", 1400, 1400, 4, ""));
+        mazo.add(new Monstruo("Lombris Sangrienta", 1900, 2000, 8, ""));
+        mazo.add(new Monstruo("Araña Aguja", 2200, 2000, 6, ""));
+        mazo.add(new Monstruo("Sativa", 2200, 2800, 10, ""));
+        mazo.add(new Monstruo("Golem", 2000, 2500, 8, ""));
 
 
         mazo.add(new CartaMagica("Pot of Greed",
@@ -63,7 +63,7 @@ public static ArrayList<Carta> crearMazo() {
 
         mazo.add(new CartaMagica(" Orden de Destruccion ",
                 " Destruye el monstruo más débil del oponente ",    
-                new destruirMountruo()));
+                new destruirMonstruo()));
 
         mazo.add(new CartaMagica(" Daño ",
                 " Inflige 800 de daño directo ",

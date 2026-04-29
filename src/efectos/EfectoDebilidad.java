@@ -1,6 +1,6 @@
 package efectos;
 
-import cartas.Mounstruo;
+import cartas.Monstruo;
 import jugadores.Jugador;
 
 public class EfectoDebilidad implements Efecto {
@@ -15,12 +15,12 @@ public class EfectoDebilidad implements Efecto {
     public void activar(Jugador jugador) {}
 
     @Override
-    public void activar(Mounstruo mounstruo) {
+    public void activar(Monstruo Monstruo) {
 
-        int nuevoAtk = mounstruo.getAtk() - reduccion;
+        int nuevoAtk = Monstruo.getAtk() - reduccion;
         if(nuevoAtk < 0) nuevoAtk = 0;
 
-        mounstruo.setAtk(nuevoAtk);
+        Monstruo.setAtk(nuevoAtk);
 
         System.out.println(" El monstruo pierde " + reduccion + " ataque ");
     }

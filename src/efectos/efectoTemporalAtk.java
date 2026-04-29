@@ -1,12 +1,12 @@
 package efectos;
 import jugadores.Jugador;
-import cartas.Mounstruo;
+import cartas.Monstruo;
 import java.util.ArrayList;;
 
 public class efectoTemporalAtk implements Efecto {
 
     private int bonusAtk; //aqui guardamos la referencia al mountruo  afectado para que se revierta al final del turno
-    private Mounstruo mounstruoAfectado;
+    private Monstruo MonstruoAfectado;
     private boolean activo;
 
     public efectoTemporalAtk(int bonusAtk){
@@ -19,7 +19,7 @@ public class efectoTemporalAtk implements Efecto {
     @Override
     public void activar(Jugador jugador){//Para bonus al primer mountruo en campo del jugador
     
-    ArrayList<cartas.Mounstruo> campo = jugador.getCampo();
+    ArrayList<cartas.Monstruo> campo = jugador.getCampo();
     
     if (campo.isEmpty()){
 
@@ -27,38 +27,38 @@ public class efectoTemporalAtk implements Efecto {
         return;
     }
 
-    mounstruoAfectado = campo.get(0);
-    int atkActual = mounstruoAfectado.getAtk();
-    mounstruoAfectado.setAtk(atkActual + bonusAtk);
+    MonstruoAfectado = campo.get(0);
+    int atkActual = MonstruoAfectado.getAtk();
+    MonstruoAfectado.setAtk(atkActual + bonusAtk);
     activo = true;
 
-    System.out.println(" (Temporal) Ataque de: " + mounstruoAfectado.getNombre() + " Aumenta de:" + atkActual + " a: " + mounstruoAfectado.getAtk());
+    System.out.println(" (Temporal) Ataque de: " + MonstruoAfectado.getNombre() + " Aumenta de:" + atkActual + " a: " + MonstruoAfectado.getAtk());
 
 }
 
     @Override
-    public void activar(Mounstruo mounstruo){
+    public void activar(Monstruo Monstruo){
 
-        int atkActual = mounstruo.getAtk();
-        mounstruo.setAtk(atkActual + bonusAtk);
-        mounstruoAfectado = mounstruo;
+        int atkActual = Monstruo.getAtk();
+        Monstruo.setAtk(atkActual + bonusAtk);
+        MonstruoAfectado = Monstruo;
         activo = true;
 
-        System.out.println(" (Temporal) ataque de: " + mounstruo.getNombre() + " sube: " + bonusAtk + " puntos por este turno ");
+        System.out.println(" (Temporal) ataque de: " + Monstruo.getNombre() + " sube: " + bonusAtk + " puntos por este turno ");
 
     }
 
     public void revertir(){
 
-        if (activo && mounstruoAfectado != null) {
+        if (activo && MonstruoAfectado != null) {
 
-            int atkActual = mounstruoAfectado.getAtk();
+            int atkActual = MonstruoAfectado.getAtk();
 
-            mounstruoAfectado.setAtk(atkActual - bonusAtk);
+            MonstruoAfectado.setAtk(atkActual - bonusAtk);
 
-            System.out.println(" (Temporal) ataque de: " + mounstruoAfectado.getNombre() + " vuelve a: " + mounstruoAfectado.getAtk() + " (fin de efecto temporal) ");
+            System.out.println(" (Temporal) ataque de: " + MonstruoAfectado.getNombre() + " vuelve a: " + MonstruoAfectado.getAtk() + " (fin de efecto temporal) ");
             activo = false;
-            mounstruoAfectado = null;
+            MonstruoAfectado = null;
         }
     }
 

@@ -4,7 +4,7 @@ import jugadores.Jugador;
 import juego.Mazo;
 import juego.Juego;
 import cartas.Carta;
-import cartas.Mounstruo;
+import cartas.Monstruo;
 import cartas.CartaMagica;
 
 import java.util.Scanner;
@@ -128,7 +128,7 @@ private static void ejecutarFasePrincipal(Juego juego, Jugador actual) {
 
             Carta c = actual.getMano().get(i);
 
-            String tipo = (c instanceof Mounstruo) ? " [Monstruo] " : " [Mágica]  ";
+            String tipo = (c instanceof Monstruo) ? " [Monstruo] " : " [Mágica]  ";
 
             System.out.println("  [" + (i + 1) + "] " + tipo + " " + c.getNombre());
         }
@@ -144,8 +144,8 @@ private static void ejecutarFasePrincipal(Juego juego, Jugador actual) {
 
         Carta cartaElegida = actual.getMano().get(indice - 1);
 
-        if (cartaElegida instanceof Mounstruo) {
-            actual.jugarMonstruo((Mounstruo) cartaElegida);
+        if (cartaElegida instanceof Monstruo) {
+            actual.jugarMonstruo((Monstruo) cartaElegida);
 
         } else if (cartaElegida instanceof CartaMagica) {
 
@@ -183,7 +183,7 @@ private static void ejecutarFaseBatalla(Juego juego, Jugador actual, Jugador ene
 
         System.out.println(" Elige el monstruo atacante: ");
         for (int i = 0; i < actual.getCampo().size(); i++) {
-            cartas.Mounstruo m = actual.getCampo().get(i);
+            cartas.Monstruo m = actual.getCampo().get(i);
             String yaAtaco = m.yaAtaco() ? " [Ya ataco]" : "";
             System.out.println("  [" + (i + 1) + "] " + m.getNombre()
                     + " ATK:" + m.getAtk() + " DEF:" + m.getDef() + yaAtaco);
@@ -197,7 +197,7 @@ private static void ejecutarFaseBatalla(Juego juego, Jugador actual, Jugador ene
             return;
         }
 
-        cartas.Mounstruo atacante = actual.getCampo().get(eleAtacante - 1);
+        cartas.Monstruo atacante = actual.getCampo().get(eleAtacante - 1);
 
         if (atacante.yaAtaco()) {
             System.out.println(" Ese monstruo ya ataco este turno ");
@@ -209,7 +209,7 @@ private static void ejecutarFaseBatalla(Juego juego, Jugador actual, Jugador ene
 
             for (int i = 0; i < enemigo.getCampo().size(); i++) {
 
-                cartas.Mounstruo m = enemigo.getCampo().get(i);
+                cartas.Monstruo m = enemigo.getCampo().get(i);
 
                 System.out.println("  [" + (i + 1) + "] " + m.getNombre()
 
@@ -251,7 +251,7 @@ private static void mostrarEstadoCompleto(Juego juego) {
             System.out.println("   (sin monstruos)  ");
         } else {
 
-            for (cartas.Mounstruo m : j1.getCampo()) {
+            for (cartas.Monstruo m : j1.getCampo()) {
                 System.out.println("  - " + m.getNombre()
                         + "  ATK: " + m.getAtk() + "  DEF: " + m.getDef());
             }
@@ -270,7 +270,7 @@ private static void mostrarEstadoCompleto(Juego juego) {
             System.out.println("  (sin monstruos)  ");
         } else {
 
-            for (cartas.Mounstruo m : j2.getCampo()) {
+            for (cartas.Monstruo m : j2.getCampo()) {
 
                 System.out.println(" - " + m.getNombre()
 
@@ -289,8 +289,8 @@ private static void mostrarManoConTipo(Jugador jugador) {
             String tipo;
             String detalle;
 
-            if (c instanceof Mounstruo) {
-                Mounstruo m = (Mounstruo) c;
+            if (c instanceof Monstruo) {
+                Monstruo m = (Monstruo) c;
                 tipo    = " [Monstruo] ";
                 detalle = " ATK: " + m.getAtk() + " DEF: " + m.getDef()
                         + " Niv: " + m.getNivel();

@@ -1,6 +1,6 @@
 package efectos;
 
-import cartas.Mounstruo;
+import cartas.Monstruo;
 import jugadores.Jugador;
 
 public class TrampaVolteada implements Efecto {
@@ -13,8 +13,8 @@ public class TrampaVolteada implements Efecto {
     }
 
     @Override
-    public void activar(Mounstruo mounstruo) {
-        mounstruo.cambiarPosicion();
-        System.out.println(" ¡Trampa Volteada activada! " + mounstruo.getNombre() + " cambia de posición");
+    public void activar(Monstruo Monstruo) {
+        Monstruo.cambiarPosicion();
+        System.out.println(" ¡Trampa Volteada activada! " + Monstruo.getNombre() + " cambia de posición");
     }
 }

@@ -1,6 +1,6 @@
 package efectos;
 
-import cartas.Mounstruo;
+import cartas.Monstruo;
 import jugadores.Jugador;
 
 public class TrampaDebilidad implements Efecto {
@@ -17,10 +17,10 @@ public class TrampaDebilidad implements Efecto {
     }
 
     @Override
-    public void activar(Mounstruo mounstruo) {
-        int atkActual = mounstruo.getAtk();
+    public void activar(Monstruo Monstruo) {
+        int atkActual = Monstruo.getAtk();
         int nuevoAtk = Math.max(0, atkActual - reduccionAtk);
-        mounstruo.setAtk(nuevoAtk);
+        Monstruo.setAtk(nuevoAtk);
         System.out.println(" ¡Trampa Debilidad activada! ATK reducido de " + atkActual + " a " + nuevoAtk);
     }
 }

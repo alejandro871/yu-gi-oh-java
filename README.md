@@ -42,7 +42,7 @@ Proyecto académico desarrollado en Java que simula un duelo básico de Yu-Gi-Oh
 src/
 ├── cartas/
 │   ├── Carta.java (clase abstracta)
-│   ├── Mounstruo.java
+│   ├── Monstruo.java
 │   ├── CartaMagica.java
 │   ├── CartaTrampa.java
 │   └── Activable.java (interfaz)
@@ -58,8 +58,8 @@ src/
 ├── vista/
 │   ├── App.java (main)
 │   ├── Vista.java (interfaz)
-│   └── InterfasGrafica.java
-└── InterfasGrafica.java
+│   └── InterfazGrafica.java
+└── InterfazGrafica.java
 ```
 
 ---

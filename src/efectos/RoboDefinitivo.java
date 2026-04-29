@@ -1,6 +1,6 @@
 package efectos;
 
-import cartas.Mounstruo;
+import cartas.Monstruo;
 import jugadores.Jugador;
 
 public class RoboDefinitivo implements Efecto {
@@ -15,5 +15,5 @@ public class RoboDefinitivo implements Efecto {
     }
 
     @Override
-    public void activar(Mounstruo mounstruo) {}
+    public void activar(Monstruo Monstruo) {}
 }

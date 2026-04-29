@@ -1,5 +1,5 @@
 package efectos;
-import cartas.Mounstruo;
+import cartas.Monstruo;
 import jugadores.Jugador;
 
 public class AumentoAtaque implements Efecto {
@@ -16,12 +16,12 @@ public class AumentoAtaque implements Efecto {
     }
 
     @Override
-    public void activar(Mounstruo mounstruo) {
+    public void activar(Monstruo Monstruo) {
 
-        int atkActual = mounstruo.getAtk();
+        int atkActual = Monstruo.getAtk();
         int nuevoAtk = atkActual + aumento;
 
-        mounstruo.setAtk(nuevoAtk);
+        Monstruo.setAtk(nuevoAtk);
 
         System.out.println(" El ataque del monstruo aumenta de " + atkActual + " a " + nuevoAtk);
     }

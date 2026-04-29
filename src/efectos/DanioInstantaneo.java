@@ -1,6 +1,6 @@
 package efectos;
 
-import cartas.Mounstruo;
+import cartas.Monstruo;
 import jugadores.Jugador;
 
 public class DanioInstantaneo implements Efecto {
@@ -17,5 +17,5 @@ public class DanioInstantaneo implements Efecto {
     }
 
     @Override
-    public void activar(Mounstruo mounstruo) {}
+    public void activar(Monstruo Monstruo) {}
 }

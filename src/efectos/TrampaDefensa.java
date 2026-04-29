@@ -1,6 +1,6 @@
 package efectos;
 
-import cartas.Mounstruo;
+import cartas.Monstruo;
 import jugadores.Jugador;
 
 public class TrampaDefensa implements Efecto {
@@ -17,10 +17,10 @@ public class TrampaDefensa implements Efecto {
     }
 
     @Override
-    public void activar(Mounstruo mounstruo) {
-        int defActual = mounstruo.getDef();
+    public void activar(Monstruo Monstruo) {
+        int defActual = Monstruo.getDef();
         int nuevaDef = defActual + aumentoDef;
-        mounstruo.setDef(nuevaDef);
+        Monstruo.setDef(nuevaDef);
         System.out.println(" ¡Trampa Defensa activada! DEF aumenta de " + defActual + " a " + nuevaDef);
     }
 }

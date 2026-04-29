@@ -1,6 +1,6 @@
 package efectos;
 
-import cartas.Mounstruo;
+import cartas.Monstruo;
 import jugadores.Jugador;
 
 public class TrampaRobo implements Efecto {
@@ -16,7 +16,7 @@ public class TrampaRobo implements Efecto {
     }
 
     @Override
-    public void activar(Mounstruo mounstruo) {
+    public void activar(Monstruo Monstruo) {
         // No aplica directamente al monstruo
     }
 }
