@@ -429,4 +429,9 @@ public class InterfazGrafica implements Vista {
         mostrarMensaje(j1.getNombre() + " - Vida restante: " + j1.getVida());
         mostrarMensaje(j2.getNombre() + " - Vida restante: " + j2.getVida());
     }
+
+    @Override
+    public String leerString(String prompt) {
+        return JOptionPane.showInputDialog(frame, prompt);
+    }
 }

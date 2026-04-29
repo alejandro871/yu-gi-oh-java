@@ -6,43 +6,46 @@ import juego.Juego;
 import cartas.Carta;
 import cartas.Monstruo;
 import cartas.CartaMagica;
+import cartas.CartaTrampa;
 import vista.Vista;
 import vista.VistaConsola;
 
 import java.util.Scanner;
 
+import datos.GestorEstadisticas;
+
 
 public class App {
 
-    static Scanner scanner = new Scanner(System.in);
     static Vista vista = new VistaConsola();
+    static GestorEstadisticas gestorStats = new GestorEstadisticas();
 
 public static void main(String[] args) {
 
 
-        mostrarBienvenida();
+        vista.mostrarBienvenida();
 
-        System.out.println("-----------------------");
-        System.out.println("Registro de duelistas");
-        System.out.println("-----------------------");
+        // Si se pasan argumentos, usarlos; si no, pedir interactivamente
+        String nombre1, nombre2;
+        
+        if (args.length >= 2) {
+            nombre1 = args[0];
+            nombre2 = args[1];
+        } else {
+            vista.mostrarMensaje("-----------------------");
+            vista.mostrarMensaje("Registro de duelistas");
+            vista.mostrarMensaje("-----------------------");
+            nombre1 = vista.leerString("Ingresa el nombre del Duelista 1: ");
+            if (nombre1.isEmpty()) nombre1 = "Duelista 1";
+            nombre2 = vista.leerString("Ingresa el nombre del Duelista 2: ");
+            if (nombre2.isEmpty()) nombre2 = "Duelista 2";
+        }
 
-        System.out.print(" Ingresa el nombre del Duelista 1: ");
+        vista.mostrarMensaje(" ¡" + nombre1 + " VS " + nombre2 + "! ");
 
-        String nombre1 = scanner.nextLine().trim();
+        vista.mostrarMensaje(" Que comience el duelo ");
 
-        if (nombre1.isEmpty()) nombre1 = "Duelista 1";
-
-        System.out.print(" Ingresa el nombre del Duelista 2: ");
-
-        String nombre2 = scanner.nextLine().trim();
-
-        if (nombre2.isEmpty()) nombre2 = "Duelista 2";
-
-        System.out.println(" ¡" + nombre1 + " VS " + nombre2 + "! ");
-
-        System.out.println(" Que comience el duelo ");
-
-        pausar();
+        vista.pausar();
 
         Jugador j1 = new Jugador(nombre1);
         Jugador j2 = new Jugador(nombre2);
@@ -52,10 +55,8 @@ public static void main(String[] args) {
 
         Juego juego = new Juego(j1, j2);
 
-        System.out.println();
-
-        mostrarEstadoCompleto(juego);
-        pausar();
+        vista.mostrarEstadoCompleto(juego);
+        vista.pausar();
 
         int turnosJugados = 0;
 
@@ -65,83 +66,65 @@ public static void main(String[] args) {
             Jugador enemigo  = juego.getJugadorEnemigo();
          
 
-        System.out.println("------------------");
-        System.out.println(" TURNO: " + (turnosJugados + 1) + " - " + 
-                            actual.getNombre().toUpperCase());
-        System.out.println("------------------");
+            vista.mostrarTurno(turnosJugados + 1, actual.getNombre().toUpperCase());
 
-        System.out.println("------ Fase Robo ------");
+            vista.mostrarFase("Fase Robo");
 
-        boolean puedeContinuar = juego.faseRobo();
+            boolean puedeContinuar = juego.faseRobo();
 
             if (!puedeContinuar) {
                 break;
             }
 
-            mostrarEstadoCompleto(juego);
+            vista.mostrarEstadoCompleto(juego);
 
-        System.out.println("-----Fase principal-----");
+            vista.pausar();
+
+            vista.mostrarFase("Fase principal");
             ejecutarFasePrincipal(juego, actual);
 
-        System.out.println("-----Fase batalla-----");
+            vista.mostrarFase("Fase batalla");
             ejecutarFaseBatalla(juego, actual, enemigo);
 
-        juego.faseFinal();
+            juego.faseFinal();
 
-        mostrarEstadoCompleto(juego);
+            vista.mostrarEstadoCompleto(juego);
             turnosJugados++;
 
             if (juego.hayGanador()) break;
 
-        System.out.print(" Presiona ENTER para continuar al siguiente turno...");
-            scanner.nextLine();
+            vista.pausar();
 
     }
 
-    mostrarPantallaFinal(juego, j1, j2, turnosJugados);
-
-    scanner.close();
+    vista.mostrarPantallaFinal(juego, j1, j2, turnosJugados);
 }
 
 private static void ejecutarFasePrincipal(Juego juego, Jugador actual) {
 
         if (actual.getMano().isEmpty()) {
-            System.out.println(" (Mano vacía — no puedes jugar cartas) ");
+            vista.mostrarMensaje(" (Mano vacía — no puedes jugar cartas) ");
             return;
         }
 
-        System.out.println(" Mano de " + actual.getNombre() + ":");
-        mostrarManoConTipo(actual);
+        vista.mostrarManoConTipo(actual);
 
-        System.out.println(" ¿Qué deseas hacer? ");
-        System.out.println("  [1] Jugar una carta ");
-        System.out.println("  [2] Pasar (no jugar carta este turno) ");
-        System.out.print(" Tu elección: ");
-
-        int opcion = leerEntero(1, 2);
+        vista.mostrarMensaje(" ¿Qué deseas hacer? ");
+        vista.mostrarOpciones(new String[]{"Jugar una carta", "Pasar (no jugar carta este turno)"});
+        int opcion = vista.leerEntero(1, 2);
 
         if (opcion == 2) {
-            System.out.println(" " + actual.getNombre() + " decide no jugar carta ");
+            vista.mostrarMensaje(" " + actual.getNombre() + " decide no jugar carta ");
             return;
         }
 
-        System.out.println("¿Qué carta quieres jugar? ");//se muestran las cartas enumeradas para elegir
+        vista.mostrarMensaje("¿Qué carta quieres jugar? ");
+        vista.mostrarMensaje("  [0] Cancelar");
 
-        for (int i = 0; i < actual.getMano().size(); i++) {
-
-            Carta c = actual.getMano().get(i);
-
-            String tipo = (c instanceof Monstruo) ? " [Monstruo] " : " [Mágica]  ";
-
-            System.out.println("  [" + (i + 1) + "] " + tipo + " " + c.getNombre());
-        }
-        System.out.println("  [0] Cancelar");
-        System.out.print(" Tu elección: ");
-
-        int indice = leerEntero(0, actual.getMano().size());
+        int indice = vista.leerEntero(0, actual.getMano().size());
 
         if (indice == 0) {
-            System.out.println(" Acción cancelada ");
+            vista.mostrarMensaje(" Acción cancelada ");
             return;
         }
 
@@ -155,6 +138,11 @@ private static void ejecutarFasePrincipal(Juego juego, Jugador actual) {
             CartaMagica magica = (CartaMagica) cartaElegida;
 
             actual.jugarMagia(magica);
+        } else if (cartaElegida instanceof CartaTrampa) {
+
+            CartaTrampa trampa = (CartaTrampa) cartaElegida;
+
+            actual.ponerTrampa(trampa);
         }
     }
 
@@ -162,68 +150,42 @@ private static void ejecutarFaseBatalla(Juego juego, Jugador actual, Jugador ene
 
         if (juego.esPrimerTurno()) {
 
-            System.out.println(" Primer turno: no se puede atacar ");
+            vista.mostrarMensaje(" Primer turno: no se puede atacar ");
 
             return;
         }
 
         if (actual.getCampo().isEmpty()) {
-            System.out.println(" No tienes monstruos en campo para atacar ");
+            vista.mostrarMensaje(" No tienes monstruos en campo para atacar ");
             return;
         }
 
-        System.out.println(" ¿Deseas atacar este turno? ");
-        System.out.println("  [1] Si, atacar ");
-        System.out.println("  [2] No atacar (pasar)");
-        System.out.print(" Tu elección: ");
-
-        int opcion = leerEntero(1, 2);
+        vista.mostrarMensaje(" ¿Deseas atacar este turno? ");
+        vista.mostrarOpciones(new String[]{"Si, atacar", "No atacar (pasar)"});
+        int opcion = vista.leerEntero(1, 2);
 
         if (opcion == 2) {
-            System.out.println(" " + actual.getNombre() + " decide no atacar ");
+            vista.mostrarMensaje(" " + actual.getNombre() + " decide no atacar ");
             return;
         }
 
-        System.out.println(" Elige el monstruo atacante: ");
-        for (int i = 0; i < actual.getCampo().size(); i++) {
-            cartas.Monstruo m = actual.getCampo().get(i);
-            String yaAtaco = m.yaAtaco() ? " [Ya ataco]" : "";
-            System.out.println("  [" + (i + 1) + "] " + m.getNombre()
-                    + " ATK:" + m.getAtk() + " DEF:" + m.getDef() + yaAtaco);
-        }
-        System.out.println("  [0] Cancelar ataque ");
-        System.out.print(" Tu eleccion: ");
-
-        int eleAtacante = leerEntero(0, actual.getCampo().size());
+        int eleAtacante = vista.seleccionarMonstruoCampo(actual, "Elige el monstruo atacante:");
         if (eleAtacante == 0) {
-            System.out.println(" Ataque cancelado.");
+            vista.mostrarMensaje(" Ataque cancelado.");
             return;
         }
 
         cartas.Monstruo atacante = actual.getCampo().get(eleAtacante - 1);
 
         if (atacante.yaAtaco()) {
-            System.out.println(" Ese monstruo ya ataco este turno ");
+            vista.mostrarMensaje(" Ese monstruo ya ataco este turno ");
             return;
         }
 
-        if (!enemigo.getCampo().isEmpty()) { //aqui elegimos si el objetivo tiene mountruos
-            System.out.println(" Elige el objetivo del ataque: ");
-
-            for (int i = 0; i < enemigo.getCampo().size(); i++) {
-
-                cartas.Monstruo m = enemigo.getCampo().get(i);
-
-                System.out.println("  [" + (i + 1) + "] " + m.getNombre()
-
-                            + " ATK:" + m.getAtk() + " DEF:" + m.getDef());
-            }
-            System.out.println("  [0] Cancelar");
-            System.out.print(" Tu eleccion: ");
-
-            int eleDefensor = leerEntero(0, enemigo.getCampo().size());
+        if (!enemigo.getCampo().isEmpty()) {
+            int eleDefensor = vista.seleccionarMonstruoCampo(enemigo, "Elige el objetivo del ataque:");
             if (eleDefensor == 0) {
-                System.out.println(" Ataque cancelado.");
+                vista.mostrarMensaje(" Ataque cancelado.");
                 return;
             }
 
@@ -316,8 +278,16 @@ private static void mostrarBienvenida() {
 
 private static void mostrarPantallaFinal(Juego juego, Jugador j1, Jugador j2, int turnos) {
 
-        String ganador = (j1.getVida() > 0) ? j1.getNombre() : j2.getNombre();
-        String perdedor = (j1.getVida() > 0) ? j2.getNombre() : j1.getNombre();
+        String nombre1 = j1.getNombre();
+        String nombre2 = j2.getNombre();
+        
+        // Registrar estadísticas
+        boolean j1Gano = j1.getVida() > 0;
+        gestorStats.registrarPartida(nombre1, j1Gano, true);
+        gestorStats.registrarPartida(nombre2, !j1Gano, false);
+
+        String ganador = (j1.getVida() > 0) ? nombre1 : nombre2;
+        String perdedor = (j1.getVida() > 0) ? nombre2 : nombre1;
 
         System.out.println();
         System.out.println("╔═════════════════════════════════════╗");
@@ -333,42 +303,15 @@ private static void mostrarPantallaFinal(Juego juego, Jugador j1, Jugador j2, in
         System.out.println();
         System.out.println("╠═════════════════════════════════════╣");
         System.out.printf ("  %-20s LP finales: %5d%n",
-                j1.getNombre(), j1.getVida());
+                nombre1, j1.getVida());
 
         System.out.printf ("  %-20s LP finales: %5d%n",
-                j2.getNombre(), j2.getVida());
+                nombre2, j2.getVida());
 
         System.out.println("  Duracion: " + turnos + " turnos ");
         System.out.println("╚═════════════════════════════════════╝");
-    }
-
-private static int leerEntero(int min, int max) {
-
-        while (true) {
-
-            try {
-                String linea = scanner.nextLine().trim();
-                int valor = Integer.parseInt(linea);
-                if (valor >= min && valor <= max) {
-
-                    return valor;
-                }
-
-                System.out.print(" Opción invalida. Elige entre "
-                        + min + " y " + max + ": ");
-                        
-            } catch (NumberFormatException e) {
-
-                System.out.print(" Entrada invalida. Ingresa un numero: ");
-            }
-        }
-    }
-
-private static void pausar() {
-
-        System.out.print(" Presiona ENTER para continuar... ");
-
-        scanner.nextLine();
+        
+        System.out.println("\nEstadísticas actualizadas!");
     }
 }
 

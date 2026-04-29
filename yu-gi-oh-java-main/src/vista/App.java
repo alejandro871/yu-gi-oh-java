@@ -4,6 +4,7 @@ import cartas.Carta;
 import cartas.CartaMagica;
 import cartas.CartaTrampa;
 import cartas.Monstruo;
+import datos.GestorEstadisticas;
 import jugadores.Jugador;
 import juego.Mazo;
 import juego.Juego;
@@ -11,14 +12,22 @@ import juego.Juego;
 public class App {
 
     private static final Vista vista = new InterfazGrafica();
+    private static GestorEstadisticas gestorStats = new GestorEstadisticas();
 
     public static void main(String[] args) {
 
         vista.mostrarBienvenida();
 
-        // Registro de duelistas usando la interfaz gráfica
-        String nombre1 = obtenerNombreJugador("Ingresa el nombre del Duelista 1:");
-        String nombre2 = obtenerNombreJugador("Ingresa el nombre del Duelista 2:");
+        // Si se pasan argumentos, usarlos; si no, pedir interactivamente
+        String nombre1, nombre2;
+        
+        if (args.length >= 2) {
+            nombre1 = args[0];
+            nombre2 = args[1];
+        } else {
+            nombre1 = obtenerNombreJugador("Ingresa el nombre del Duelista 1:");
+            nombre2 = obtenerNombreJugador("Ingresa el nombre del Duelista 2:");
+        }
 
         vista.mostrarMensaje(" ¡" + nombre1 + " VS " + nombre2 + "! ");
         vista.mostrarMensaje(" Que comience el duelo ");
@@ -73,7 +82,13 @@ public class App {
             vista.pausar();
         }
 
+        // Registrar estadísticas
+        boolean j1Gano = j1.getVida() > 0;
+        gestorStats.registrarPartida(j1.getNombre(), j1Gano, true);
+        gestorStats.registrarPartida(j2.getNombre(), !j1Gano, false);
+        
         vista.mostrarPantallaFinal(juego, j1, j2, turnosJugados);
+        vista.mostrarMensaje("Estadisticas actualizadas!");
     }
 
     private static void ejecutarFasePrincipal(Juego juego, Jugador actual) {

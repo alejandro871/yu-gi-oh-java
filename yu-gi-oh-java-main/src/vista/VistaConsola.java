@@ -174,6 +174,12 @@ public class VistaConsola implements Vista {
     }
 
     @Override
+    public String leerString(String prompt) {
+        System.out.print(prompt);
+        return scanner.nextLine().trim();
+    }
+
+    @Override
     public int seleccionarTrampaEnCampo(Jugador jugador, String mensaje) {
         if (jugador.getTrampasEnCampo().isEmpty()) {
             return -1; // No hay trampas

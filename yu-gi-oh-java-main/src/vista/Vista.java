@@ -9,6 +9,7 @@ public interface Vista {
     void mostrarPantallaFinal(Juego juego, Jugador j1, Jugador j2, int turnos);
     void mostrarManoConTipo(Jugador jugador);
     int leerEntero(int min, int max);
+    String leerString(String prompt);
     void pausar();
 
     // Nuevos métodos para mensajes específicos del juego
