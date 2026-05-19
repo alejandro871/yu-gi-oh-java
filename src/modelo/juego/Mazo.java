@@ -1,17 +1,17 @@
-package juego;
+package modelo.juego;
 
-import cartas.Carta;
-import cartas.Mounstruo;
-import cartas.CartaMagica;
-import efectos.*;
-import jugadores.Jugador;
+import modelo.cartas.Carta;
+import modelo.cartas.Mounstruo;
+import modelo.cartas.CartaMagica;
+import modelo.efectos.*;
+import modelo.jugadores.Jugador;
+import modelo.Mensajes;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class Mazo {
 
-   
     public static ArrayList<Carta> crearMazo() {
 
         ArrayList<Carta> mazo = new ArrayList<>();
@@ -47,7 +47,6 @@ public class Mazo {
         mazo.add(new Mounstruo("Sativa", 2200, 2800, 10, ""));
         mazo.add(new Mounstruo("Golem", 2000, 2500, 8, ""));
 
-    
         mazo.add(new CartaMagica("Pot of Greed",
                 " Roba 2 cartas del mazo ",
                 new PotOfGreed()));
@@ -57,12 +56,12 @@ public class Mazo {
                 new EfectoCuracion(800)));
 
         efectoTemporalAtk terraforming = new efectoTemporalAtk(500);
-        mazo.add(new CartaMagica("Terraforming",    
+        mazo.add(new CartaMagica("Terraforming",
                 " Ataque de un monstruo propio +500 por este turno ",
                  terraforming));
 
         mazo.add(new CartaMagica(" Orden de Destruccion ",
-                " Destruye el monstruo más débil del oponente ",    
+                " Destruye el monstruo más débil del oponente ",
                 new destruirMountruo()));
 
         mazo.add(new CartaMagica(" Daño ",
@@ -89,39 +88,29 @@ public class Mazo {
                 " Drena 600 LP del objetivo ",
                 new EfectoDrenaje(600)));
 
-        mazo.add(new CartaMagica(" Robo Curacion ",
-                "Roba 1 carta y gana 300 LP ",
-                new RoboDefinitivo()));
-
-        /*mazo.add(new CartaMagica("Reset",
-                " Restaura el ATK original de un monstruo ",
-                new ResetAtk()));*/
-
-        System.out.println("Mazo creado con " + mazo.size() + " cartas ");
+        Mensajes.agregar("Mazo creado con " + mazo.size() + " cartas ");
 
         return mazo;
     }
 
-
-    // Mezcla el mazo 
     public static void repartir(Jugador j1, Jugador j2) {
 
         ArrayList<Carta> mazo = crearMazo();
 
-        Collections.shuffle(mazo); // Reparticion aleatoria
+        Collections.shuffle(mazo);
 
         for (int i = 0; i < 20; i++) {
-            j1.agregarCarta(mazo.get(i));       // primeras 20 jugador 1
+            j1.agregarCarta(mazo.get(i));
         }
 
         for (int i = 20; i < 40; i++) {
-            j2.agregarCarta(mazo.get(i));       // siguientes 20 jugador 2
+            j2.agregarCarta(mazo.get(i));
         }
 
         j1.tomarManoInicial();
         j2.tomarManoInicial();
 
-        System.out.println("Cartas repartidas: 20 para " + j1.getNombre()
+        Mensajes.agregar("Cartas repartidas: 20 para " + j1.getNombre()
                 + " y 20 para " + j2.getNombre() + " Con 5 en mano y 15 en mazo cada uno ");
     }
 }

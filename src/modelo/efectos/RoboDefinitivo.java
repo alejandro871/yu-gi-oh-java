@@ -1,17 +1,16 @@
-package efectos;
+package modelo.efectos;
 
-import cartas.Mounstruo;
-import jugadores.Jugador;
+import modelo.cartas.Mounstruo;
+import modelo.jugadores.Jugador;
+import modelo.Mensajes;
 
 public class RoboDefinitivo implements Efecto {
 
     @Override
     public void activar(Jugador jugador) {
-
         jugador.robarCarta();
         jugador.setVida(jugador.getVida() + 300);
-
-        System.out.println(" Roba 1 carta y gana 300 LP ");
+        Mensajes.agregar(" Roba 1 carta y gana 300 LP ");
     }
 
     @Override

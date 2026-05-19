@@ -1,7 +1,8 @@
-package efectos;
+package modelo.efectos;
 
-import cartas.Mounstruo;
-import jugadores.Jugador;
+import modelo.cartas.Mounstruo;
+import modelo.jugadores.Jugador;
+import modelo.Mensajes;
 
 public class ResetAtk implements Efecto {
 
@@ -10,9 +11,7 @@ public class ResetAtk implements Efecto {
 
     @Override
     public void activar(Mounstruo mounstruo) {
-
         mounstruo.resetAtk();
-
-        System.out.println(" El ataque vuelve a su valor original ");
+        Mensajes.agregar(" El ataque vuelve a su valor original ");
     }
 }

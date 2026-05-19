@@ -1,6 +1,7 @@
-package efectos;
-import cartas.Mounstruo;
-import jugadores.Jugador;
+package modelo.efectos;
+import modelo.cartas.Mounstruo;
+import modelo.jugadores.Jugador;
+import modelo.Mensajes;
 
 public class AumentoAtaque implements Efecto {
 
@@ -12,17 +13,13 @@ public class AumentoAtaque implements Efecto {
 
     @Override
     public void activar(Jugador jugador) {
-        // no hace nada
     }
 
     @Override
     public void activar(Mounstruo mounstruo) {
-
         int atkActual = mounstruo.getAtk();
         int nuevoAtk = atkActual + aumento;
-
         mounstruo.setAtk(nuevoAtk);
-
-        System.out.println(" El ataque del monstruo aumenta de " + atkActual + " a " + nuevoAtk);
+        Mensajes.agregar(" El ataque del monstruo aumenta de " + atkActual + " a " + nuevoAtk);
     }
 }

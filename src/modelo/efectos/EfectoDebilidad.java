@@ -1,7 +1,8 @@
-package efectos;
+package modelo.efectos;
 
-import cartas.Mounstruo;
-import jugadores.Jugador;
+import modelo.cartas.Mounstruo;
+import modelo.jugadores.Jugador;
+import modelo.Mensajes;
 
 public class EfectoDebilidad implements Efecto {
 
@@ -16,12 +17,9 @@ public class EfectoDebilidad implements Efecto {
 
     @Override
     public void activar(Mounstruo mounstruo) {
-
         int nuevoAtk = mounstruo.getAtk() - reduccion;
         if(nuevoAtk < 0) nuevoAtk = 0;
-
         mounstruo.setAtk(nuevoAtk);
-
-        System.out.println(" El monstruo pierde " + reduccion + " ataque ");
+        Mensajes.agregar(" El monstruo pierde " + reduccion + " ataque ");
     }
 }

@@ -1,4 +1,4 @@
-package cartas;
+package modelo.cartas;
 
 public class Mounstruo extends Carta {
 

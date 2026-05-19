@@ -1,37 +1,29 @@
-package cartas;
-import efectos.Efecto;
-import jugadores.Jugador;
-
+package modelo.cartas;
+import modelo.efectos.Efecto;
+import modelo.jugadores.Jugador;
+import modelo.Mensajes;
 
 public class CartaMagica extends Carta implements Activable {
 
     private Efecto efecto;
 
+    public Efecto getEfecto() {
+        return efecto;
+    }
 
     public CartaMagica (String nombre, String descripcion, Efecto efecto){
-
         super (nombre, descripcion);
         this.efecto = efecto;
-
     }
 
     @Override
     public void activar(Jugador jugador){
-
-        System.out.println("Se activa carta magica: "+ getNombre());
+        Mensajes.agregar("Se activa carta magica: "+ getNombre());
         efecto.activar(jugador);
-
-
     }
-
 
      public void activar(Mounstruo mounstruo){
-
-        System.out.println("Se activa carta magica: "+ getNombre());
+        Mensajes.agregar("Se activa carta magica: "+ getNombre());
         efecto.activar(mounstruo);
-
-
     }
-
-    
 }

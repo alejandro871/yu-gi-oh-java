@@ -1,7 +1,8 @@
-package efectos;
+package modelo.efectos;
 
-import cartas.Mounstruo;
-import jugadores.Jugador;
+import modelo.cartas.Mounstruo;
+import modelo.jugadores.Jugador;
+import modelo.Mensajes;
 
 public class EfectoDrenaje implements Efecto {
 
@@ -13,14 +14,11 @@ public class EfectoDrenaje implements Efecto {
 
     @Override
     public void activar(Jugador jugador) {
-
         int costo = cantidad/2;
         int curacion = cantidad;
-
         jugador.recibirDanio(costo);
         jugador.setVida(jugador.getVida() + curacion);
-
-        System.out.println(" Drenado: " + costo + " LP y recupero: " + curacion + " LP");
+        Mensajes.agregar(" Drenado: " + costo + " LP y recupero: " + curacion + " LP");
     }
 
     @Override

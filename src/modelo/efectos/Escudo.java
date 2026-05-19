@@ -1,7 +1,8 @@
-package efectos;
+package modelo.efectos;
 
-import cartas.Mounstruo;
-import jugadores.Jugador;
+import modelo.cartas.Mounstruo;
+import modelo.jugadores.Jugador;
+import modelo.Mensajes;
 
 public class Escudo implements Efecto {
 
@@ -13,17 +14,13 @@ public class Escudo implements Efecto {
 
     @Override
     public void activar(Jugador jugador) {
-        // no aplica en este caso
     }
 
     @Override
     public void activar(Mounstruo mounstruo) {
-
         int defActual = mounstruo.getDef();
         int nuevaDef = defActual + aumentoDef;
-
         mounstruo.setDef(nuevaDef);
-
-        System.out.println(" La defensa del monstruo aumenta de " + defActual + " a " + nuevaDef);
+        Mensajes.agregar(" La defensa del monstruo aumenta de " + defActual + " a " + nuevaDef);
     }
 }

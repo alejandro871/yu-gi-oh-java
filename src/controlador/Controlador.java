@@ -1,14 +1,15 @@
 package controlador;
 
-import juego.Juego;
-import juego.Mazo;
-import jugadores.Jugador;
-import cartas.Carta;
-import cartas.Mounstruo;
-import cartas.CartaMagica;
+import modelo.juego.Juego;
+import modelo.juego.Mazo;
+import modelo.jugadores.Jugador;
+import modelo.cartas.Carta;
+import modelo.cartas.Mounstruo;
+import modelo.cartas.CartaMagica;
 import vista.Vista;
 
-import java.util.Collections;
+import modelo.Mensajes;
+import modelo.efectos.destruirMountruo;
 
 public class Controlador {
 
@@ -16,6 +17,10 @@ public class Controlador {
 
     public Controlador(Vista vista) {
         this.vista = vista;
+    }
+
+    private void drenarMensajes() {
+        vista.mostrarMensajes(Mensajes.obtenerTodos());
     }
 
     public void iniciarJuego() {
@@ -26,17 +31,21 @@ public class Controlador {
         String nombre2 = vista.pedirNombreDuelista(2);
 
         vista.mostrarVs(nombre1, nombre2);
+        drenarMensajes();
         vista.pausar();
 
         Jugador j1 = new Jugador(nombre1);
         Jugador j2 = new Jugador(nombre2);
 
         Mazo.repartir(j1, j2);
+        drenarMensajes();
 
         Juego juego = new Juego(j1, j2);
+        drenarMensajes();
 
         System.out.println();
         vista.mostrarEstadoCompleto(juego);
+        drenarMensajes();
         vista.pausar();
 
         int turnosJugados = 0;
@@ -49,20 +58,25 @@ public class Controlador {
 
             vista.mostrarFaseRobo();
             boolean puedeContinuar = juego.faseRobo();
+            drenarMensajes();
             if (!puedeContinuar) {
                 break;
             }
 
             vista.mostrarEstadoCompleto(juego);
+            drenarMensajes();
 
             vista.mostrarFasePrincipal();
-            ejecutarFasePrincipal(juego, actual);
+            ejecutarFasePrincipal(actual, enemigo);
 
             vista.mostrarFaseBatalla();
             ejecutarFaseBatalla(juego, actual, enemigo);
 
             juego.faseFinal();
+            drenarMensajes();
+
             vista.mostrarEstadoCompleto(juego);
+            drenarMensajes();
 
             turnosJugados++;
 
@@ -72,10 +86,11 @@ public class Controlador {
         }
 
         vista.mostrarPantallaFinal(juego, j1, j2, turnosJugados);
+        drenarMensajes();
         vista.cerrar();
     }
 
-    private void ejecutarFasePrincipal(Juego juego, Jugador actual) {
+    private void ejecutarFasePrincipal(Jugador actual, Jugador enemigo) {
         if (actual.getMano().isEmpty()) {
             vista.mostrarManoVacia();
             return;
@@ -103,8 +118,12 @@ public class Controlador {
             actual.jugarMonstruo((Mounstruo) cartaElegida);
         } else if (cartaElegida instanceof CartaMagica) {
             CartaMagica magica = (CartaMagica) cartaElegida;
+            if (magica.getEfecto() instanceof destruirMountruo) {
+                ((destruirMountruo) magica.getEfecto()).setEnemigo(enemigo);
+            }
             actual.jugarMagia(magica);
         }
+        drenarMensajes();
     }
 
     private void ejecutarFaseBatalla(Juego juego, Jugador actual, Jugador enemigo) {
@@ -143,9 +162,10 @@ public class Controlador {
                 vista.mostrarAtaqueCancelado();
                 return;
             }
-            Collections.swap(enemigo.getCampo(), 0, eleDefensor - 1);
+            enemigo.colocarComoDefensor(eleDefensor - 1);
         }
 
         actual.atacarJugador(enemigo);
+        drenarMensajes();
     }
 }

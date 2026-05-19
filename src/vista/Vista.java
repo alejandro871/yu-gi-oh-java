@@ -1,9 +1,9 @@
 package vista;
 
-import juego.Juego;
-import jugadores.Jugador;
-import cartas.Carta;
-import cartas.Mounstruo;
+import modelo.juego.Juego;
+import modelo.jugadores.Jugador;
+import modelo.cartas.Carta;
+import modelo.cartas.Mounstruo;
 
 import java.util.Scanner;
 
@@ -238,6 +238,12 @@ public class Vista {
                 j2.getNombre(), j2.getVida());
         System.out.println("  Duracion: " + turnos + " turnos ");
         System.out.println("╚═════════════════════════════════════╝");
+    }
+
+    public void mostrarMensajes(java.util.List<String> mensajes) {
+        for (String m : mensajes) {
+            System.out.println(m);
+        }
     }
 
     public void cerrar() {

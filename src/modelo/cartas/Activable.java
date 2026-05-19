@@ -1,6 +1,6 @@
-package cartas;
+package modelo.cartas;
 
-import jugadores.Jugador;
+import modelo.jugadores.Jugador;
 
 public interface Activable {
 

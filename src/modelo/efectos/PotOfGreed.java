@@ -1,26 +1,18 @@
-package efectos;
-import cartas.Mounstruo;
-import jugadores.Jugador;
-
+package modelo.efectos;
+import modelo.cartas.Mounstruo;
+import modelo.jugadores.Jugador;
+import modelo.Mensajes;
 
 public class PotOfGreed implements Efecto{
 
     @Override
     public void activar(Jugador jugador){
-
-    System.out.println(" Se activa Pot Of Greed ");
-
+        Mensajes.agregar(" Se activa Pot Of Greed ");
         jugador.robarCarta();
         jugador.robarCarta();
-
     }
 
     @Override
     public void activar(Mounstruo mounstruo){
-
-        //no hace nada
     }
-    
 }
-
-
