@@ -1,11 +1,11 @@
 
 
-import jugadores.Jugador;
-import juego.Mazo;
-import juego.Juego;
-import cartas.Carta;
-import cartas.Monstruo;
-import cartas.CartaMagica;
+import modelo.Jugador;
+import modelo.Mazo;
+import modelo.Juego;
+import modelo.Carta;
+import modelo.Monstruo;
+import modelo.CartaMagica;
 
 import java.util.Scanner;
 
@@ -183,7 +183,7 @@ private static void ejecutarFaseBatalla(Juego juego, Jugador actual, Jugador ene
 
         System.out.println(" Elige el monstruo atacante: ");
         for (int i = 0; i < actual.getCampo().size(); i++) {
-            cartas.Monstruo m = actual.getCampo().get(i);
+            Monstruo m = actual.getCampo().get(i);
             String yaAtaco = m.yaAtaco() ? " [Ya ataco]" : "";
             System.out.println("  [" + (i + 1) + "] " + m.getNombre()
                     + " ATK:" + m.getAtk() + " DEF:" + m.getDef() + yaAtaco);
@@ -197,7 +197,7 @@ private static void ejecutarFaseBatalla(Juego juego, Jugador actual, Jugador ene
             return;
         }
 
-        cartas.Monstruo atacante = actual.getCampo().get(eleAtacante - 1);
+        Monstruo atacante = actual.getCampo().get(eleAtacante - 1);
 
         if (atacante.yaAtaco()) {
             System.out.println(" Ese monstruo ya ataco este turno ");
@@ -209,7 +209,7 @@ private static void ejecutarFaseBatalla(Juego juego, Jugador actual, Jugador ene
 
             for (int i = 0; i < enemigo.getCampo().size(); i++) {
 
-                cartas.Monstruo m = enemigo.getCampo().get(i);
+                Monstruo m = enemigo.getCampo().get(i);
 
                 System.out.println("  [" + (i + 1) + "] " + m.getNombre()
 
@@ -251,7 +251,7 @@ private static void mostrarEstadoCompleto(Juego juego) {
             System.out.println("   (sin monstruos)  ");
         } else {
 
-            for (cartas.Monstruo m : j1.getCampo()) {
+            for (Monstruo m : j1.getCampo()) {
                 System.out.println("  - " + m.getNombre()
                         + "  ATK: " + m.getAtk() + "  DEF: " + m.getDef());
             }
@@ -270,7 +270,7 @@ private static void mostrarEstadoCompleto(Juego juego) {
             System.out.println("  (sin monstruos)  ");
         } else {
 
-            for (cartas.Monstruo m : j2.getCampo()) {
+            for (Monstruo m : j2.getCampo()) {
 
                 System.out.println(" - " + m.getNombre()
 

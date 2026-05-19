@@ -1,7 +1,7 @@
 package vista;
 
-import juego.Juego;
-import jugadores.Jugador;
+import modelo.Juego;
+import modelo.Jugador;
 
 public interface Vista {
     void mostrarBienvenida();

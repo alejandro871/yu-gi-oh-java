@@ -22,12 +22,12 @@ import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 
-import cartas.Carta;
-import cartas.CartaMagica;
-import cartas.CartaTrampa;
-import cartas.Monstruo;
-import juego.Juego;
-import jugadores.Jugador;
+import modelo.Carta;
+import modelo.CartaMagica;
+import modelo.CartaTrampa;
+import modelo.Monstruo;
+import modelo.Juego;
+import modelo.Jugador;
 
 public class InterfazGrafica implements Vista {
     private JFrame frame;

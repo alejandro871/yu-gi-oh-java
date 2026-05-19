@@ -1,11 +1,11 @@
 package vista;
 
-import juego.Juego;
-import jugadores.Jugador;
-import cartas.Carta;
-import cartas.Monstruo;
-import cartas.CartaMagica;
-import cartas.CartaTrampa;
+import modelo.Juego;
+import modelo.Jugador;
+import modelo.Carta;
+import modelo.Monstruo;
+import modelo.CartaMagica;
+import modelo.CartaTrampa;
 
 import java.util.Scanner;
 

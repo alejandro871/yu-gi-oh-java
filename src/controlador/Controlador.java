@@ -1,15 +1,16 @@
 package controlador;
 
-import cartas.Carta;
-import cartas.CartaMagica;
-import cartas.CartaTrampa;
-import cartas.Monstruo;
-import jugadores.Jugador;
-import juego.Mazo;
-import juego.Juego;
+import modelo.Carta;
+import modelo.CartaMagica;
+import modelo.CartaTrampa;
+import modelo.Monstruo;
+import modelo.Jugador;
+import modelo.Mazo;
+import modelo.Juego;
 import vista.Vista;
 
-import java.util.Collections;
+import modelo.Mensajero;
+import java.util.List;
 
 public class Controlador {
 
@@ -24,6 +25,13 @@ public class Controlador {
         this.j2 = new Jugador(nombre2);
     }
 
+    private void mostrarMensajesPendientes() {
+        List<String> mensajes = Mensajero.obtener();
+        for (String msg : mensajes) {
+            vista.mostrarMensaje(msg);
+        }
+    }
+
     public void iniciarJuego() {
         vista.mostrarBienvenida();
 
@@ -35,8 +43,10 @@ public class Controlador {
         vista.pausar();
 
         Mazo.repartir(j1, j2);
+        mostrarMensajesPendientes();
 
         juego = new Juego(j1, j2);
+        mostrarMensajesPendientes();
 
         vista.mostrarEstadoCompleto(juego);
         vista.pausar();
@@ -52,6 +62,7 @@ public class Controlador {
 
             vista.mostrarFase("Fase Robo");
             boolean puedeContinuar = actual.robarCarta();
+            mostrarMensajesPendientes();
             if (!puedeContinuar) {
                 break;
             }
@@ -66,6 +77,7 @@ public class Controlador {
             ejecutarFaseBatalla(actual, enemigo);
 
             juego.faseFinal();
+            mostrarMensajesPendientes();
 
             vista.mostrarEstadoCompleto(juego);
             turnosJugados++;
@@ -131,14 +143,17 @@ public class Controlador {
             } else {
                 actual.jugarMonstruo(monstruo);
             }
+            mostrarMensajesPendientes();
             vista.mostrarCartaJugada(actual.getNombre(), cartaElegida.getNombre());
         } else if (cartaElegida instanceof CartaMagica) {
             CartaMagica magica = (CartaMagica) cartaElegida;
             actual.jugarMagia(magica);
+            mostrarMensajesPendientes();
             vista.mostrarCartaJugada(actual.getNombre(), cartaElegida.getNombre());
         } else if (cartaElegida instanceof CartaTrampa) {
             CartaTrampa trampa = (CartaTrampa) cartaElegida;
             actual.jugarTrampa(trampa);
+            mostrarMensajesPendientes();
             vista.mostrarCartaJugada(actual.getNombre(), cartaElegida.getNombre());
         }
     }
@@ -192,7 +207,7 @@ public class Controlador {
                 return;
             }
             if (eleDefensor > 1) {
-                Collections.swap(enemigo.getCampo(), 0, eleDefensor - 1);
+                enemigo.swapCampo(0, eleDefensor - 1);
             }
         } else {
             vista.mostrarMensaje(" Ataque directo al jugador enemigo!");
@@ -201,8 +216,10 @@ public class Controlador {
         if (enemigo.tieneTrampas()) {
             vista.mostrarMensaje(" El oponente tiene trampas activadas!");
             enemigo.activarTrampas(actual, actual.getCampo().get(eleAtacante - 1));
+            mostrarMensajesPendientes();
         }
 
         actual.atacarJugador(enemigo);
+        mostrarMensajesPendientes();
     }
 }
