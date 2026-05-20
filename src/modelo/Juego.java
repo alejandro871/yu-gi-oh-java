@@ -77,19 +77,7 @@ public class Juego {
     }
     
     public boolean hayGanador(){
-
-    if (jugador1.getVida() <= 0){
-        Mensajero.add(jugador2.getNombre() + " gana el duelo!");
-        return true;
-    }
-
-    if (jugador2.getVida() <= 0){
-        Mensajero.add(jugador1.getNombre() + " gana el duelo!");
-        return true;
-    }
-
-    return false;
-
+    return jugador1.getVida() <= 0 || jugador2.getVida() <= 0;
 }
 
     public boolean faseRobo(){

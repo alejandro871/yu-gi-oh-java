@@ -82,11 +82,17 @@ public class Controlador {
             vista.mostrarEstadoCompleto(juego);
             turnosJugados++;
 
-            if (juego.hayGanador()) break;
+            if (juego.hayGanador()) {
+                // Mostrar mensaje de victoria una sola vez
+                String nombreGanador = (j1.getVida() > 0) ? j1.getNombre() : j2.getNombre();
+                Mensajero.add("*** " + nombreGanador + " GANA EL DUELO! ***");
+                break;
+            }
 
             vista.pausar();
         }
 
+        mostrarMensajesPendientes();
         vista.mostrarPantallaFinal(juego, j1, j2, turnosJugados);
     }
 
