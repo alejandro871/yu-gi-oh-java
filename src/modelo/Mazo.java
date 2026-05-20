@@ -45,7 +45,7 @@ public static ArrayList<Carta> crearMazo() {
         mazo.add(new Monstruo("Lombriz Sangrienta", 1900, 2000, 8, "Gusano parasitic"));
         mazo.add(new Monstruo("Araña Aguja", 2200, 2000, 6, "Araña de colmillos mortales"));
         mazo.add(new Monstruo("Sativa", 2200, 2800, 10, "Planta carnívora gigante"));
-        mazo.add(new Monstruo("Golem", 2000, 2500, 8, "Constructo de piedra"));
+        mazo.add(new Monstruo("Golem de Piedra", 2000, 2500, 8, "Constructo de piedra"));
 
 
         mazo.add(new CartaMagica("Pot of Greed",
