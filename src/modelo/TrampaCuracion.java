@@ -23,4 +23,13 @@ public class TrampaCuracion implements Efecto {
     public void activar(Monstruo Monstruo) {
         // No aplica
     }
+
+    @Override
+    public void activar(Jugador jugador, Jugador oponente, Monstruo atacante) {
+        // Curar al jugador que defendía
+        int vidaActual = jugador.getVida();
+        int nuevaVida = vidaActual + curacion;
+        jugador.setVida(nuevaVida);
+        Mensajero.add(" ¡Trampa Curación activada! Se recuperan " + curacion + " LP");
+    }
 }

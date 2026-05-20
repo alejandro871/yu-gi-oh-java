@@ -18,4 +18,12 @@ public class TrampaRecuperacion implements Efecto {
     public void activar(Monstruo Monstruo) {
         // No aplica
     }
+
+    @Override
+    public void activar(Jugador jugador, Jugador oponente, Monstruo atacante) {
+        // Recuperar LP por protección
+        Mensajero.add(" ¡Trampa Recuperación activada! Se recuperan 500 LP por protección");
+        int vidaActual = jugador.getVida();
+        jugador.setVida(vidaActual + 500);
+    }
 }

@@ -7,12 +7,14 @@ public interface Efecto {
 
     void activar(Jugador jugador);
     void activar(Monstruo Monstruo);
-    
-    // Por defecto: no hace nada (para backward compatibility)
+
+    // Activación con contexto de ataque: delegar a activar(Jugador) por defecto
+    // CADA EFECTO debe sobrescribir este metodo para manejar su propia logica
     default void activar(Jugador jugador, Jugador oponente, Monstruo atacante) {
-        activar(jugador); // Por defecto, trata como activación normal
+        // Por defecto, trata como activación normal de carta
+        activar(jugador);
     }
-    
+
 }
 
 

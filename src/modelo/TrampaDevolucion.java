@@ -18,9 +18,17 @@ public class TrampaDevolucion implements Efecto {
 
     @Override
     public void activar(Monstruo monstruo) {
-        Mensajero.add(" Trampa Devolucion activada! Dano reflejado al oponente");
+        Mensajero.add(" Trampa Devolucion activada! Dano refletado al oponente");
     }
-    
+
+    @Override
+    public void activar(Jugador jugador, Jugador oponente, Monstruo atacante) {
+        // REFLEJAR daño al oponente (atacante)
+        Mensajero.add(" Trampa Devolucion activada! Daño refletado al oponente");
+        Mensajero.add("  FLECHA! Dano refletado: " + danioDevuelto + " al oponente");
+        oponente.recibirDanio(danioDevuelto);
+    }
+
     public int getDanioDevuelto() {
         return danioDevuelto;
     }

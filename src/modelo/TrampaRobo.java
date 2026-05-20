@@ -19,4 +19,13 @@ public class TrampaRobo implements Efecto {
     public void activar(Monstruo Monstruo) {
         // No aplica directamente al monstruo
     }
+
+    @Override
+    public void activar(Jugador jugador, Jugador oponente, Monstruo atacante) {
+        // Mantener comportamiento original: descartar una carta (del jugador que plays la trampa)
+        if (!jugador.getMano().isEmpty()) {
+            jugador.removerCartaMano(0);
+            Mensajero.add(" ¡Trampa Robo activada! Una carta es descartada");
+        }
+    }
 }

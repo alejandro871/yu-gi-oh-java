@@ -17,4 +17,12 @@ public class TrampaBloqueo implements Efecto {
         // Reducir ATK a 0 para bloquear
         monstruo.setAtk(0);
     }
+
+    @Override
+    public void activar(Jugador jugador, Jugador oponente, Monstruo atacante) {
+        Mensajero.add(" ¡Trampa Bloqueo activada! El ataque de " + atacante.getNombre() + " es bloqueado");
+        // Bloquear el ataque reduciendo ATK a 0
+        atacante.setAtk(0);
+        Mensajero.add("  El ataque fue bloqueado! No se inflict daño.");
+    }
 }
