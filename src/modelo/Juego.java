@@ -127,10 +127,11 @@ public class Juego {
 
         Mensajero.add("----Fase final---- ");
 
-        for(efectoTemporalAtk ef: efectosTemporalesActivos){
-            ef.revertir();
-        }
+        // Revertir efectos temporales de ambos jugadores
+        jugadorActual.revertirEfectosTemporales();
+        jugadorEnemigo.revertirEfectosTemporales();
 
+        // Limpiar la lista interna (ya no se usa, cada Jugador tiene la suya)
         efectosTemporalesActivos.clear();
 
         jugadorActual.reiniciarTurno();

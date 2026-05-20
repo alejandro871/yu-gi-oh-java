@@ -18,9 +18,9 @@ public class efectoTemporalAtk implements Efecto {
 
     @Override
     public void activar(Jugador jugador){//Para bonus al primer mountruo en campo del jugador
-    
+
     List<Monstruo> campo = jugador.getCampo();
-    
+
     if (campo.isEmpty()){
 
         Mensajero.add(" No hay moustruos en el campo para aplicar el efecto ");
@@ -31,6 +31,9 @@ public class efectoTemporalAtk implements Efecto {
     int atkActual = MonstruoAfectado.getAtk();
     MonstruoAfectado.setAtk(atkActual + bonusAtk);
     activo = true;
+
+    // Registrar el efecto temporal para revertir al final del turno
+    jugador.registrarEfectoTemporal(this);
 
     Mensajero.add(" (Temporal) Ataque de: " + MonstruoAfectado.getNombre() + " Aumenta de:" + atkActual + " a: " + MonstruoAfectado.getAtk());
 

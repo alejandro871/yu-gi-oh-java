@@ -20,6 +20,7 @@ public class Jugador {
     private ArrayList<CartaTrampa> trampas; // Trampas boca abajo
     private boolean cartaJugadaEsteTurno;
     private boolean yaAtacoEsteTurno;
+    private ArrayList<efectoTemporalAtk> efectosTemporales; // Efectos temporales del turno
 
 
 public Jugador (String nombre){
@@ -31,6 +32,7 @@ public Jugador (String nombre){
         this.campo = new ArrayList<>();
         this.cementerio = new ArrayList<>();
         this.trampas = new ArrayList<>();
+        this.efectosTemporales = new ArrayList<>();
         this.cartaJugadaEsteTurno = false;
 
     }
@@ -192,6 +194,19 @@ public void reiniciarTurno(){
         m.reiniciarAtaque();
 
     }
+}
+
+// Registrar efecto temporal para revertir al final del turno
+public void registrarEfectoTemporal(efectoTemporalAtk efecto) {
+    efectosTemporales.add(efecto);
+}
+
+// Revertir todos los efectos temporales del jugador
+public void revertirEfectosTemporales() {
+    for (efectoTemporalAtk ef : efectosTemporales) {
+        ef.revertir();
+    }
+    efectosTemporales.clear();
 }
 
 public void reiniciarAtaque(){
