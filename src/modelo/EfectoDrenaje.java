@@ -13,7 +13,7 @@ public class EfectoDrenaje implements Efecto {
 
     @Override
     public void activar(Jugador jugador) {
-
+        // Versión legacy - aplicar al mismo jugador (incorrecto, mantener por compatibilidad)
         int costo = cantidad/2;
         int curacion = cantidad;
 
@@ -25,4 +25,13 @@ public class EfectoDrenaje implements Efecto {
 
     @Override
     public void activar(Monstruo Monstruo) {}
+
+    @Override
+    public void activar(Jugador jugador, Jugador oponente) {
+        // Drena al oponente y cura al jugador
+        oponente.recibirDanio(cantidad);
+        jugador.setVida(jugador.getVida() + cantidad);
+        Mensajero.add(" Efecto Drenaje: " + cantidad + " LP drenados del oponente");
+        Mensajero.add(" " + jugador.getNombre() + " recupera " + cantidad + " LP");
+    }
 }

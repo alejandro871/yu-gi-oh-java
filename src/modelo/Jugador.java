@@ -292,7 +292,7 @@ public boolean robarCarta(){
 
 }
 
-public void jugarMagia(CartaMagica carta){
+public void jugarMagia(CartaMagica carta, Jugador oponente){
 
     if (cartaJugadaEsteTurno) {
 
@@ -311,7 +311,14 @@ public void jugarMagia(CartaMagica carta){
         mano.remove(carta);
         cartaJugadaEsteTurno = true;
         Mensajero.add(nombre + " activa la carta mágica: " + carta.getNombre());
-    
+
+        // Si hay oponente, pasar ambos jugadores para efectos que afectan al enemigo
+        if (oponente != null) {
+            carta.activar(this, oponente);
+        } else {
+            carta.activar(this);
+        }
+
 }
 
 public void jugarTrampa(CartaTrampa carta){

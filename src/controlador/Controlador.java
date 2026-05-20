@@ -147,7 +147,9 @@ public class Controlador {
             vista.mostrarCartaJugada(actual.getNombre(), cartaElegida.getNombre());
         } else if (cartaElegida instanceof CartaMagica) {
             CartaMagica magica = (CartaMagica) cartaElegida;
-            actual.jugarMagia(magica);
+            // Pasar el oponente para efectos que afectan al enemigo (como Drenaje)
+            Jugador oponente = (actual == j1) ? j2 : j1;
+            actual.jugarMagia(magica, oponente);
             mostrarMensajesPendientes();
             vista.mostrarCartaJugada(actual.getNombre(), cartaElegida.getNombre());
         } else if (cartaElegida instanceof CartaTrampa) {

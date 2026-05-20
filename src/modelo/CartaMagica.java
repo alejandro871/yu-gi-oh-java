@@ -33,5 +33,10 @@ public class CartaMagica extends Carta implements Activable {
 
     }
 
-    
+    // Activar con oponente (para efectos que afectan al enemigo)
+    public void activar(Jugador jugador, Jugador oponente) {
+        Mensajero.add("Se activa carta magica: "+ getNombre());
+        efecto.activar(jugador, oponente);
+    }
+
 }

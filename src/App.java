@@ -149,7 +149,9 @@ private static void ejecutarFasePrincipal(Juego juego, Jugador actual) {
 
             CartaMagica magica = (CartaMagica) cartaElegida;
 
-            actual.jugarMagia(magica);
+            // Pasar el oponente para efectos que afectan al enemigo
+            Jugador oponente = juego.getJugadorEnemigo();
+            actual.jugarMagia(magica, oponente);
         }
     }
 
