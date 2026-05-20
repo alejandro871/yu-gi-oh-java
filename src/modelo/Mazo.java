@@ -144,25 +144,42 @@ public static ArrayList<Carta> crearMazo() {
 }
 
 
-    // Mezcla el mazo 
+// Mezcla el mazo
 public static void repartir(Jugador j1, Jugador j2) {
 
         ArrayList<Carta> mazo = crearMazo();
 
+        // Validar que el mazo tenga exactamente 50 cartas
+        if (mazo.size() != 50) {
+            throw new IllegalStateException(
+                "El mazo debe tener exactamente 50 cartas. Actual: " + mazo.size() +
+                ". Revisa crearMazo() - asegurate de tener 30 monstruos + 10 magicas + 10 trampas."
+            );
+        }
+
+        // Validar que sea par para poder dividir equitativamente
+        if (mazo.size() % 2 != 0) {
+            throw new IllegalStateException(
+                "El mazo debe tener un numero par de cartas para dividir entre 2 jugadores."
+            );
+        }
+
         Collections.shuffle(mazo); // Reparticion aleatoria
 
-        for (int i = 0; i < 25; i++) {
+        int mitad = mazo.size() / 2;
+
+        for (int i = 0; i < mitad; i++) {
             j1.agregarCarta(mazo.get(i));       // primeras 25 jugador 1
         }
 
-        for (int i = 25; i < 50; i++) {
+        for (int i = mitad; i < mazo.size(); i++) {
             j2.agregarCarta(mazo.get(i));       // siguientes 25 jugador 2
         }
 
         j1.tomarManoInicial();
         j2.tomarManoInicial();
 
-        Mensajero.add("Cartas repartidas: 25 para " + j1.getNombre()
-                + " y 25 para " + j2.getNombre() + " Con 5 en mano y 20 en mazo cada uno ");
+        Mensajero.add("Cartas repartidas: " + mitad + " para " + j1.getNombre()
+                + " y " + mitad + " para " + j2.getNombre() + " Con 5 en mano y 20 en mazo cada uno ");
 }
 }
