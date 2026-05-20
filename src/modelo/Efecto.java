@@ -21,6 +21,12 @@ public interface Efecto {
         activar(jugador);
     }
 
+    // Verifica si la trampa debe activarse dado el contexto de ataque
+    // Por defecto, todas las trampas se activan durante un ataque
+    default boolean debeActivarse(Jugador jugador, Jugador oponente, Monstruo atacante) {
+        return true;
+    }
+
 }
 
 

@@ -31,4 +31,10 @@ public class TrampaDoble implements Efecto {
             Mensajero.add(" ¡Trampa Doble activada! DEF de " + m.getNombre() + " se duplica a " + nuevaDef);
         }
     }
+
+    @Override
+    public boolean debeActivarse(Jugador jugador, Jugador oponente, Monstruo atacante) {
+        // Solo si tiene monstruos para duplicar DEF
+        return !jugador.getCampo().isEmpty();
+    }
 }

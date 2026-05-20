@@ -38,4 +38,10 @@ public class TrampaDefensa implements Efecto {
             Mensajero.add(" Trampa Defensa activada! " + m.getNombre() + " DEF +" + aumentoDef + " (ahora " + m.getDef() + ")");
         }
     }
+
+    @Override
+    public boolean debeActivarse(Jugador jugador, Jugador oponente, Monstruo atacante) {
+        // Solo si tiene monstruos en campo para defender
+        return !jugador.getCampo().isEmpty();
+    }
 }

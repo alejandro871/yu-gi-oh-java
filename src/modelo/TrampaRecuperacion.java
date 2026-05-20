@@ -26,4 +26,10 @@ public class TrampaRecuperacion implements Efecto {
         int vidaActual = jugador.getVida();
         jugador.setVida(vidaActual + 500);
     }
+
+    @Override
+    public boolean debeActivarse(Jugador jugador, Jugador oponente, Monstruo atacante) {
+        // Solo si el jugador tiene monstruos (está siendo atacado)
+        return !jugador.getCampo().isEmpty();
+    }
 }

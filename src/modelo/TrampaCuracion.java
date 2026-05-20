@@ -32,4 +32,10 @@ public class TrampaCuracion implements Efecto {
         jugador.setVida(nuevaVida);
         Mensajero.add(" ¡Trampa Curación activada! Se recuperan " + curacion + " LP");
     }
+
+    @Override
+    public boolean debeActivarse(Jugador jugador, Jugador oponente, Monstruo atacante) {
+        // Solo activarse si el jugador tiene monstruos en campo (está siendo atacado)
+        return !jugador.getCampo().isEmpty();
+    }
 }

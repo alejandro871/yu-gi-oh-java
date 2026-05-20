@@ -39,6 +39,12 @@ public class CartaTrampa extends Carta implements Activable {
 
     // Activacion por ataque con monstruo atacante
     public void activar(Jugador jugador, Jugador oponente, Monstruo atacante) {
+        // Verificar si la trampa debe activarse en este contexto
+        if (!efecto.debeActivarse(jugador, oponente, atacante)) {
+            Mensajero.add(" ⚠️ " + getNombre() + " no se activa (condición no cumplida)");
+            return;
+        }
+
         Mensajero.add(" TRAMPA ACTIVADA: " + getNombre() + " contra " + atacante.getNombre());
 
         // Delegar completamente al efecto - cada efecto maneja su propia lógica
