@@ -43,13 +43,21 @@ public class App {
             opciones[0]);
 
         Vista vista;
+        InterfazGrafica gui = null;
         if (modoSeleccionado == 0) {
-            vista = new InterfazGrafica();
+            gui = new InterfazGrafica();
+            vista = gui;
         } else {
             vista = new Consola();
         }
 
         Controlador controlador = new Controlador(vista, nombre1, nombre2);
-        controlador.iniciarJuego();
+
+        // Si es GUI, ejecutar en hilo separado para evitar deadlock del EDT
+        if (gui != null) {
+            gui.iniciarJuegoAsync(controlador);
+        } else {
+            controlador.iniciarJuego();
+        }
     }
 }

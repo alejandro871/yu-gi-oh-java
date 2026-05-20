@@ -20,6 +20,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
+import javax.swing.SwingWorker;
+import javax.swing.SwingUtilities;
 import javax.swing.border.TitledBorder;
 
 import modelo.Carta;
@@ -28,6 +30,8 @@ import modelo.CartaTrampa;
 import modelo.Monstruo;
 import modelo.Juego;
 import modelo.Jugador;
+
+import controlador.Controlador;
 
 public class InterfazGrafica implements Vista {
     private JFrame frame;
@@ -41,10 +45,39 @@ public class InterfazGrafica implements Vista {
     private JButton[] actionButtons;
     private CountDownLatch latch;
     private int selectedValue;
+    private SwingWorker<Void, Void> gameWorker;
+    private volatile boolean gameRunning = false;
 
     public InterfazGrafica() {
         setupGUI();
         redirectConsoleToGUI();
+    }
+
+    public void iniciarJuegoAsync(Controlador controlador) {
+        gameRunning = true;
+        gameWorker = new SwingWorker<Void, Void>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                try {
+                    controlador.iniciarJuego();
+                } catch (Exception e) {
+                    e.printStackTrace(System.out);
+                    mostrarMensaje("ERROR: " + e.getMessage());
+                }
+                return null;
+            }
+
+            @Override
+            protected void done() {
+                gameRunning = false;
+                mostrarMensaje("=== JUEGO FINALIZADO ===");
+            }
+        };
+        gameWorker.execute();
+    }
+
+    public boolean isGameRunning() {
+        return gameRunning;
     }
 
     private void setupGUI() {
@@ -228,7 +261,9 @@ public class InterfazGrafica implements Vista {
                         "Un juego de cartas estratégico donde dos duelistas se enfrentan\n" +
                         "con monstruos, cartas mágicas y de trampa.\n\n" +
                         "Haz clic en OK para continuar.";
-        JOptionPane.showMessageDialog(frame, mensaje, "Yu-Gi-Oh!", JOptionPane.INFORMATION_MESSAGE);
+        SwingUtilities.invokeLater(() ->
+            JOptionPane.showMessageDialog(frame, mensaje, "Yu-Gi-Oh!", JOptionPane.INFORMATION_MESSAGE)
+        );
     }
 
     @Override
@@ -240,19 +275,21 @@ public class InterfazGrafica implements Vista {
         mostrarMensaje("Turno actual: " + actual.getNombre());
         mostrarMensaje("");
 
-        // Actualizar panel de campo con layout mejorado
-        fieldPanel.removeAll();
-        JPanel centerPanel = new JPanel(new GridLayout(2, 1, 10, 10));
-        centerPanel.setBackground(new Color(245, 240, 220));
-        
-        centerPanel.add(createPlayerFieldPanel(actual, "🛡️ TU CAMPO", true));
-        centerPanel.add(createPlayerFieldPanel(enemigo, "⚔️ CAMPO ENEMIGO", false));
-        
-        fieldPanel.add(centerPanel, BorderLayout.CENTER);
-        fieldPanel.add(monsterInfoLabel, BorderLayout.EAST);
-        
-        fieldPanel.revalidate();
-        fieldPanel.repaint();
+        // Actualizar panel de campo en el EDT
+        SwingUtilities.invokeLater(() -> {
+            fieldPanel.removeAll();
+            JPanel centerPanel = new JPanel(new GridLayout(2, 1, 10, 10));
+            centerPanel.setBackground(new Color(245, 240, 220));
+
+            centerPanel.add(createPlayerFieldPanel(actual, "🛡️ TU CAMPO", true));
+            centerPanel.add(createPlayerFieldPanel(enemigo, "⚔️ CAMPO ENEMIGO", false));
+
+            fieldPanel.add(centerPanel, BorderLayout.CENTER);
+            fieldPanel.add(monsterInfoLabel, BorderLayout.EAST);
+
+            fieldPanel.revalidate();
+            fieldPanel.repaint();
+        });
 
         mostrarMensaje("");
     }
@@ -303,22 +340,26 @@ public class InterfazGrafica implements Vista {
 
     @Override
     public void mostrarManoConTipo(Jugador jugador) {
-        handPanel.removeAll();
         List<Carta> mano = jugador.getMano();
+        final List<Carta> manoFinal = mano;
 
-        if (!mano.isEmpty()) {
-            handButtons = new JButton[mano.size()];
-            for (int i = 0; i < mano.size(); i++) {
-                handButtons[i] = createCardButton(mano.get(i), i + 1);
-                handPanel.add(handButtons[i]);
+        SwingUtilities.invokeLater(() -> {
+            handPanel.removeAll();
+
+            if (!manoFinal.isEmpty()) {
+                handButtons = new JButton[manoFinal.size()];
+                for (int i = 0; i < manoFinal.size(); i++) {
+                    handButtons[i] = createCardButton(manoFinal.get(i), i + 1);
+                    handPanel.add(handButtons[i]);
+                }
+            } else {
+                JLabel emptyLabel = new JLabel("Mano vacía");
+                handPanel.add(emptyLabel);
             }
-        } else {
-            JLabel emptyLabel = new JLabel("Mano vacía");
-            handPanel.add(emptyLabel);
-        }
 
-        handPanel.revalidate();
-        handPanel.repaint();
+            handPanel.revalidate();
+            handPanel.repaint();
+        });
     }
 
     @Override
@@ -372,20 +413,27 @@ public class InterfazGrafica implements Vista {
 
     @Override
     public void mostrarMensaje(String mensaje) {
-        consoleArea.append(mensaje + "\n");
-        consoleArea.setCaretPosition(consoleArea.getDocument().getLength());
+        final String msg = mensaje;
+        SwingUtilities.invokeLater(() -> {
+            consoleArea.append(msg + "\n");
+            consoleArea.setCaretPosition(consoleArea.getDocument().getLength());
+        });
     }
 
     @Override
     public void mostrarTurno(int numeroTurno, String nombreJugador) {
-        consoleArea.append("=== TURNO " + numeroTurno + " - " + nombreJugador.toUpperCase() + " ===\n");
-        consoleArea.setCaretPosition(consoleArea.getDocument().getLength());
+        SwingUtilities.invokeLater(() -> {
+            consoleArea.append("=== TURNO " + numeroTurno + " - " + nombreJugador.toUpperCase() + " ===\n");
+            consoleArea.setCaretPosition(consoleArea.getDocument().getLength());
+        });
     }
 
     @Override
     public void mostrarFase(String nombreFase) {
-        consoleArea.append("--- " + nombreFase.toUpperCase() + " ---\n");
-        consoleArea.setCaretPosition(consoleArea.getDocument().getLength());
+        SwingUtilities.invokeLater(() -> {
+            consoleArea.append("--- " + nombreFase.toUpperCase() + " ---\n");
+            consoleArea.setCaretPosition(consoleArea.getDocument().getLength());
+        });
     }
 
     @Override
@@ -394,26 +442,31 @@ public class InterfazGrafica implements Vista {
         for (int i = 0; i < opciones.length; i++) {
             sb.append("[").append(i + 1).append("] ").append(opciones[i]).append("\n");
         }
-        consoleArea.append(sb.toString());
-        consoleArea.setCaretPosition(consoleArea.getDocument().getLength());
+        mostrarMensaje(sb.toString());
     }
 
     @Override
     public void mostrarCartaJugada(String nombreJugador, String nombreCarta) {
-        consoleArea.append("▶ " + nombreJugador + " juega: " + nombreCarta + "\n");
-        consoleArea.setCaretPosition(consoleArea.getDocument().getLength());
+        SwingUtilities.invokeLater(() -> {
+            consoleArea.append("▶ " + nombreJugador + " juega: " + nombreCarta + "\n");
+            consoleArea.setCaretPosition(consoleArea.getDocument().getLength());
+        });
     }
 
     @Override
     public void mostrarAtaque(String atacante, String defensor, int dano) {
-        consoleArea.append("⚔ " + atacante + " ataca a " + defensor + " causando " + dano + " puntos de daño\n");
-        consoleArea.setCaretPosition(consoleArea.getDocument().getLength());
+        SwingUtilities.invokeLater(() -> {
+            consoleArea.append("⚔ " + atacante + " ataca a " + defensor + " causando " + dano + " puntos de daño\n");
+            consoleArea.setCaretPosition(consoleArea.getDocument().getLength());
+        });
     }
 
     @Override
     public void mostrarResultadoAtaque(String resultado) {
-        consoleArea.append("Resultado del ataque: " + resultado + "\n");
-        consoleArea.setCaretPosition(consoleArea.getDocument().getLength());
+        SwingUtilities.invokeLater(() -> {
+            consoleArea.append("Resultado del ataque: " + resultado + "\n");
+            consoleArea.setCaretPosition(consoleArea.getDocument().getLength());
+        });
     }
 
     @Override
