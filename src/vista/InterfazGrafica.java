@@ -50,7 +50,7 @@ public class InterfazGrafica implements Vista {
 
     public InterfazGrafica() {
         setupGUI();
-        redirectConsoleToGUI();
+        // No llamamos redirectConsoleToGUI() automáticamente para evitar modificar System.out globalmente
     }
 
     public void iniciarJuegoAsync(Controlador controlador) {
@@ -162,11 +162,34 @@ public class InterfazGrafica implements Vista {
     }
 
     private void redirectConsoleToGUI() {
+        // Solo configurar si no se ha configurado antes (evitar sobrescribir múltiples veces)
+        if (System.out.getClass().getName().contains("InterfazGrafica")) {
+            return; // Ya está configurado
+        }
+
         PrintStream printStream = new PrintStream(new OutputStream() {
+            private StringBuilder buffer = new StringBuilder();
+
             @Override
             public void write(int b) {
-                consoleArea.append(String.valueOf((char) b));
-                consoleArea.setCaretPosition(consoleArea.getDocument().getLength());
+                buffer.append((char) b);
+                // Flush en newline para mejor rendimiento
+                if (b == '\n') {
+                    flushBuffer();
+                }
+            }
+
+            @Override
+            public void flush() {
+                flushBuffer();
+            }
+
+            private synchronized void flushBuffer() {
+                if (buffer.length() > 0) {
+                    consoleArea.append(buffer.toString());
+                    consoleArea.setCaretPosition(consoleArea.getDocument().getLength());
+                    buffer.setLength(0);
+                }
             }
         });
         System.setOut(printStream);
