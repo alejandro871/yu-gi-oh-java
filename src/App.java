@@ -1,16 +1,77 @@
+import modelo.Jugador;
+import modelo.Mazo;
+import modelo.Juego;
+import modelo.Carta;
+import modelo.Monstruo;
+import modelo.CartaMagica;
+
+import java.util.Scanner;
 
 
-/**
- * Punto de entrada legacy - usar vista.App para ejecutar
- * Este archivo se mantiene por compatibilidad con scripts antiguos.
- */
 public class App {
-    public static void main(String[] args) {
-        System.out.println("Este archivo ya no es el punto de entrada.");
-        System.out.println("Ejecuta: vista.App");
-        System.out.println("O usa los archivos .bat de la raíz del proyecto.");
-    }
-}
+
+    static Scanner scanner = new Scanner(System.in);
+
+public static void main(String[] args) {
+
+
+        mostrarBienvenida();
+
+        System.out.println("-----------------------");
+        System.out.println("Registro de duelistas");
+        System.out.println("-----------------------");
+
+        System.out.print(" Ingresa el nombre del Duelista 1: ");
+
+        String nombre1 = scanner.nextLine().trim();
+
+        if (nombre1.isEmpty()) nombre1 = "Duelista 1";
+
+        System.out.print(" Ingresa el nombre del Duelista 2: ");
+
+        String nombre2 = scanner.nextLine().trim();
+
+        if (nombre2.isEmpty()) nombre2 = "Duelista 2";
+
+        System.out.println(" ¡" + nombre1 + " VS " + nombre2 + "! ");
+
+        System.out.println(" Que comience el duelo ");
+
+        pausar();
+
+        Jugador j1 = new Jugador(nombre1);
+        Jugador j2 = new Jugador(nombre2);
+
+        
+        Mazo.repartir(j1, j2);
+
+        Juego juego = new Juego(j1, j2);
+
+        System.out.println();
+
+        mostrarEstadoCompleto(juego);
+        pausar();
+
+        int turnosJugados = 0;
+
+         while (!juego.hayGanador()) {
+
+            Jugador actual   = juego.getJugadorActual();
+            Jugador enemigo  = juego.getJugadorEnemigo();
+          
+
+        System.out.println("------------------");
+        System.out.println(" TURNO: " + (turnosJugados + 1) + " - " + 
+                            actual.getNombre().toUpperCase());
+        System.out.println("------------------");
+
+        System.out.println("------ Fase Robo ------");
+
+        boolean puedeContinuar = juego.faseRobo();
+
+            if (!puedeContinuar) {
+                break;
+            }
 
             mostrarEstadoCompleto(juego);
 
@@ -149,7 +210,6 @@ private static void ejecutarFaseBatalla(Juego juego, Jugador actual, Jugador ene
                 Monstruo m = enemigo.getCampo().get(i);
 
                 System.out.println("  [" + (i + 1) + "] " + m.getNombre()
-
                             + " ATK:" + m.getAtk() + " DEF:" + m.getDef());
             }
             System.out.println("  [0] Cancelar");
@@ -210,7 +270,6 @@ private static void mostrarEstadoCompleto(Juego juego) {
             for (Monstruo m : j2.getCampo()) {
 
                 System.out.println(" - " + m.getNombre()
-
                         + "  ATK:" + m.getAtk() + "  DEF:" + m.getDef());
             }
         }
@@ -298,11 +357,10 @@ private static int leerEntero(int min, int max) {
         }
     }
 
-private static void pausar() {
+    private static void pausar() {
 
         System.out.print(" Presiona ENTER para continuar... ");
 
         scanner.nextLine();
     }
 }
-
