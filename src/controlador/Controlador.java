@@ -232,7 +232,8 @@ public class Controlador {
             }
         }
 
-        actual.atacarJugador(enemigo);
+        // Usar la versión con parámetro para especificar el atacante exacto
+        actual.atacarJugador(enemigo, atacante);
         mostrarMensajesPendientes();
     }
 }
