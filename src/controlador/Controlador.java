@@ -196,6 +196,12 @@ public class Controlador {
             return;
         }
 
+        // Verificar que el atacante todavía está en el campo antes de continuar
+        if (!actual.getCampo().contains(atacante)) {
+            vista.mostrarMensaje(" El monstruo atacante ya no está en el campo (destruido por efecto).");
+            return;
+        }
+
         if (!enemigo.getCampo().isEmpty()) {
             int eleDefensor = vista.seleccionarMonstruoCampo(enemigo, "Elige el objetivo del ataque:");
             if (eleDefensor == 0) {
@@ -215,8 +221,15 @@ public class Controlador {
 
         if (enemigo.tieneTrampas()) {
             vista.mostrarMensaje(" El oponente tiene trampas activadas!");
-            enemigo.activarTrampas(actual, actual.getCampo().get(eleAtacante - 1));
+            // Usar la referencia 'atacante' guardada, no acceder por índice
+            enemigo.activarTrampas(actual, atacante);
             mostrarMensajesPendientes();
+
+            // Verificar de nuevo que el atacante sobrevivió a las trampas
+            if (!actual.getCampo().contains(atacante)) {
+                vista.mostrarMensaje(" El monstruo fue destruido por las trampas. Ataque cancelado.");
+                return;
+            }
         }
 
         actual.atacarJugador(enemigo);
