@@ -561,12 +561,16 @@ public class InterfazGrafica implements Vista {
         sb.append("=== FIN DEL JUEGO ===\n");
         sb.append("Turnos jugados: ").append(turnos).append("\n\n");
 
-        if (juego.hayGanador()) {
-            Jugador ganador = (j1.getVida() > 0) ? j1 : j2;
-            Jugador perdedor = (j1.getVida() > 0) ? j2 : j1;
-            sb.append("¡").append(ganador.getNombre()).append(" GANA!\n");
-            sb.append(perdedor.getNombre()).append(" ha sido derrotado.\n");
+        if (j1.getVida() > 0 && j2.getVida() <= 0) {
+            // Solo j1 tiene vida > 0, j1 gana
+            sb.append("¡").append(j1.getNombre()).append(" GANA!\n");
+            sb.append(j2.getNombre()).append(" ha sido derrotado.\n");
+        } else if (j2.getVida() > 0 && j1.getVida() <= 0) {
+            // Solo j2 tiene vida > 0, j2 gana
+            sb.append("¡").append(j2.getNombre()).append(" GANA!\n");
+            sb.append(j1.getNombre()).append(" ha sido derrotado.\n");
         } else {
+            // Ambos tienen vida ≤ 0 o ambos > 0 (caso improbable)
             sb.append("El juego terminó en empate.\n");
         }
 
